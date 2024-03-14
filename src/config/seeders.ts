@@ -1,6 +1,7 @@
 export const SeederConfig = {
     ADMINS: 1,
-    EMPLOYED: 2,
+    ARTIST: 3,
     USERS: 100,
-    APPOINTMENT: 100,
+    DATES: 100,
+    JOBS: 100,
 }

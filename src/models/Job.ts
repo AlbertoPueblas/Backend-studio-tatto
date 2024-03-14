@@ -20,8 +20,8 @@ export class Job extends BaseEntity {
     @Column({name: "first_name"})
     firstName!: string
 
-    @Column({name: "email"})
-    email!: string
+    @Column({name: "job"})
+    job!: string
 
 @ManyToOne(() => TattoArtist, (tattoArtist) => tattoArtist.job)
 @JoinColumn({name: "job_id"})

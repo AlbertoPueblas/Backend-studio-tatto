@@ -19,10 +19,10 @@ export class Dates extends BaseEntity {
     dayDate!: number;
 
     @Column({name: "hour_date"})
-    hourDate!: string;
+    hourDate!: number;
 
     @Column({name: "confirm_date"})
-    confirmDay!:string;
+    confirmDay!:number;
 
     @Column({name: "users_id"})
     userId!:number;
@@ -41,4 +41,5 @@ export class Dates extends BaseEntity {
 
     @OneToMany(() => Dates, (dates) => dates.job)    
     dates?: Date[];
+   static user: User;
 }
