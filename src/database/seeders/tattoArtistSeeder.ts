@@ -5,9 +5,9 @@ import { Seeder } from "./Seeders"
 
 export class tattoSeeder extends Seeder {
    protected async generate(): Promise<void> {
-      const {ARTIST } = SeederConfig;
+      const {MANAGER } = SeederConfig;
 
-      const tattoArtist = new TattoArtistFactory().createMany(ARTIST);
-      await TattoArtist.save(tattoArtist);
+      const tattoArtists = new TattoArtistFactory().createMany(MANAGER);
+      await TattoArtist.save(tattoArtists);
    };
 }

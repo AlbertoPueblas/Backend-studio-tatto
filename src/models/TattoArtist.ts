@@ -1,14 +1,13 @@
 import { 
     BaseEntity, 
     Column, 
-    Entity, 
-    JoinColumn,  
+    Entity,  
     OneToMany, 
     PrimaryGeneratedColumn 
 } from "typeorm"
 import { Job } from "./Job";
 
-@Entity('artist')
+@Entity('tattoArtist')
 export class TattoArtist extends BaseEntity {
     @PrimaryGeneratedColumn()
     id!: number;
@@ -19,5 +18,5 @@ export class TattoArtist extends BaseEntity {
     @Column({name: "email"})
     email!: string
 @OneToMany(() => Job, (job) => job.tattoArtist)
-   job!: Job;
+   jobs?: Job[];
 }

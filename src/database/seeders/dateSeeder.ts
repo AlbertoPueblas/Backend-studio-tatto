@@ -1,10 +1,10 @@
 import { SeederConfig } from "../../config/seeders";
 import { getRandomValueFromArray } from "../../helpers/common";
 import { Seeder } from "./Seeders";
-import { TattoArtist } from "../../models/TattoArtist";
 import { User } from "../../models/User";
-import { DateFactory } from "../factories/dateFactory";
+import { DateFactory } from "../factories/DateFactory";
 import { Dates } from "../../models/Dates";
+import { Job } from "../../models/Job";
 
 
 export class dateSeeder extends Seeder {
@@ -12,11 +12,12 @@ export class dateSeeder extends Seeder {
       const { DATES } = SeederConfig;
 
       const users = await User.find();
-      const tattoArtist= await TattoArtist.find();
+      const jobs = await Job.find();
 
       const dates = new DateFactory().createMany(DATES);
-      dates.forEach(() => {
-         return Dates.user = getRandomValueFromArray(users);
+      dates.forEach((date) => {
+         date.job = getRandomValueFromArray(jobs);
+         date.user = getRandomValueFromArray(users);
       });
 
       await Dates.save(dates);

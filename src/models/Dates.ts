@@ -15,20 +15,15 @@ export class Dates extends BaseEntity {
     @PrimaryGeneratedColumn()
     id!: number;
 
-    @Column({name: "day_date"})
-    dayDate!: number;
+    @Column({name: "appointment_date"})
+    appointmentDate!: Date;
 
-    @Column({name: "hour_date"})
-    hourDate!: number;
 
-    @Column({name: "confirm_date"})
-    confirmDay!:number;
-
-    @Column({name: "users_id"})
+    @Column({name: "user_id"})
     userId!:number;
 
-    @Column({name: "jobs_id"})
-    jobsId!:number;
+    @Column({name: "job_id"})
+    jobId!:number;
 
 
 @ManyToOne(() => User, (user) => user.dates)
@@ -36,10 +31,6 @@ export class Dates extends BaseEntity {
     user!:User;
 
 @ManyToOne(() => Job, (job) => job.dates)
-    @JoinColumn({ name: "jobs_id"})
+    @JoinColumn({ name: "job_id"})
     job!:Job;
-
-    @OneToMany(() => Dates, (dates) => dates.job)    
-    dates?: Date[];
-   static user: User;
 }

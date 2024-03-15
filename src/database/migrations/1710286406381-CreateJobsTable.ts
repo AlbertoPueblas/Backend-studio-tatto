@@ -15,11 +15,6 @@ export class CreateJobsTable1710286406381 implements MigrationInterface {
                         generationStrategy: "increment",
                      },
                      {
-                        name: "first_name",
-                        type: "varchar",
-                        length: "255",
-                     },
-                     {
                         name: "job",
                         type: "varchar",
                         length: "255",

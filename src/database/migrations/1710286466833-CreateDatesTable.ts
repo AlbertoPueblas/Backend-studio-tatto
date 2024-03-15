@@ -15,36 +15,27 @@ export class CreateDatesTable1710286466833 implements MigrationInterface {
                     generationStrategy: "increment",
                  },
                  {
-                    name: "day_date",
+                    name: "appointment_date",
                     type: "datetime",
                  },
                  {
-                    name: "hour_date",
-                    type: "datetime",
-                 },
-                 {
-                    name: "confirm_date",
-                    type: "datetime",
-                    isNullable: true,
-                 },
-                 {
-                    name: "users_id",
+                    name: "user_id",
                     type: "int",
                  },      
                  {
-                    name: "jobs_id",
+                    name: "job_id",
                     type: "int",
                  },
 
               ],
               foreignKeys: [
                  {
-                    columnNames: ["users_id"],
+                    columnNames: ["user_id"],
                     referencedTableName: "users",
                     referencedColumnNames: ["id"],
                  },                 
                  {
-                  columnNames: ["jobs_id"],
+                  columnNames: ["job_id"],
                   referencedTableName: "jobs",
                   referencedColumnNames: ["id"],
                },

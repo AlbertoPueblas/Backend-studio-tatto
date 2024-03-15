@@ -8,15 +8,15 @@ import { Seeder } from "./Seeders";
 
 export class jobSeeder extends Seeder {
    protected async generate(): Promise<void> {
-      const { JOBS } = SeederConfig;
+      const { JOBS} = SeederConfig;
 
-      const tattoArtist = await TattoArtist.find();
+      const tattoArtists = await TattoArtist.find();
 
-      const job = new JobFactory().createMany(JOBS);
-      job.forEach((job) => {
-         job.tattoArtist = getRandomValueFromArray(tattoArtist);
+      const jobs = new JobFactory().createMany(JOBS);
+      jobs.forEach((job) => {
+         job.tattoArtist = getRandomValueFromArray(tattoArtists);
       });
 
-      await Job.save(job);
+      await Job.save(jobs);
    }
 }
