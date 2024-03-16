@@ -17,26 +17,16 @@ router.get("/Dates", (req, res) => {
     res.send("Get Dates");
 })
 
-
-//Protected routes (Admin, Manager)
+//Routes
 router.post("/", userController.create);
 router.get("/", userController.getAll);
+
+//Protected routes (Admin, Manager)
 router.get("/:id", userController.getById);
-router.put("/:id", (req, res) => {
-    res.send("Upgrade users");
-}); 
-
-router.delete("/:id", (req, res) => {
-    res.send("Delete users");
-});
-
-router.get("/:id/dates", (req, res) => {
-    res.send("Get users dates by id");
-});
-
-router.put("/:id/role", (req, res) => {
-    res.send("Put users role by id");
-});
+router.put("/:id", userController.update); 
+router.delete("/:id", userController.delete);
+router.get("/:id/dates",userController.getDatesByUserId);
+router.put("/:id/role",userController.updateRole);
 
 
 export default router;

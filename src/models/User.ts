@@ -20,6 +20,7 @@ export class User extends BaseEntity {
 
     @Column({ name: "last_name" })
     lastName!: string;
+    isNullable!:true;
 
     @Column({ name: "email" })
     email!: string;

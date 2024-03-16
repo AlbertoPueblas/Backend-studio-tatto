@@ -4,11 +4,12 @@ import {
     Entity, 
     JoinColumn, 
     ManyToOne, 
-    OneToMany, 
     PrimaryGeneratedColumn
 } from "typeorm"
 import { User } from "./User";
 import { Job } from "./Job";
+
+//--------------------------------------------------------------------
 
 @Entity('dates')
 export class Dates extends BaseEntity {

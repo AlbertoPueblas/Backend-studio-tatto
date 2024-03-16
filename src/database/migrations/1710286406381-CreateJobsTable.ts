@@ -23,6 +23,7 @@ export class CreateJobsTable1710286406381 implements MigrationInterface {
                         name: "tattoArtist_id",
                         type: "int",
                      },
+
                   ],
                   foreignKeys: [
                      {
