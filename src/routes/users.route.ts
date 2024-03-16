@@ -1,4 +1,6 @@
 import express from "express";
+import { User } from "../models/User";
+import { userController } from "../controllers/userController";
 
 const router = express.Router();
 
@@ -17,17 +19,12 @@ router.get("/Dates", (req, res) => {
 
 
 //Protected routes (Admin, Manager)
-router.get("/", (req, res) => {
-    res.send("Get users");
-});
-
-router.get("/:id", (req, res) => {
-    res.send("Get users by id");
-});
-
+router.post("/", userController.create);
+router.get("/", userController.getAll);
+router.get("/:id", userController.getById);
 router.put("/:id", (req, res) => {
     res.send("Upgrade users");
-});
+}); 
 
 router.delete("/:id", (req, res) => {
     res.send("Delete users");

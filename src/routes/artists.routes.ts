@@ -13,7 +13,7 @@ router.get("/:id", (req, res) => {
 });
 
 //Protected routes (Admin, Manager)
-router.post("/", (req, res) => {
+router.post("/:id", (req, res) => {
     res.send("Post tatto artists");
 });
 
