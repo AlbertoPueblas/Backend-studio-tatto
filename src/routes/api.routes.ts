@@ -9,10 +9,10 @@ import authRoutes from "./auth.routes"
 const router = express.Router();
 
 //Api routes
+router.use("/auth", authRoutes)
 router.use("/users", userRoutes);
 router.use("/artists", artistsRoutes);
 router.use("/dates", datesRoutes);
 router.use("/job", jobRoutes)
-router.use("/auth", authRoutes)
 
 export default router;

@@ -1,32 +1,22 @@
 import express from "express";
-import { User } from "../models/User";
 import { userController } from "../controllers/userController";
+import { auth } from "../middlewares/auth";
+import { authorize } from "../middlewares/authorize";
 
 const router = express.Router();
 
-//User routes
-router.get("/profile", (req, res) => {
-    res.send("Get profile");
-});
+//Public routes
+router.get("/profile", auth, userController.getProfile);
+router.put("/profile", auth, userController.update);
+router.get("/:id/dates",auth, userController.getDatesByUserId);
 
-router.put("/profile", (req, res) => {
-    res.send("Upgrade profile");
-});
-
-router.get("/Dates", (req, res) => {
-    res.send("Get Dates");
-})
-
-//Routes
-router.post("/", userController.create);
-router.get("/", userController.getAll);
-
-//Protected routes (Admin, Manager)
-router.get("/:id", userController.getById);
-router.put("/:id", userController.update); 
-router.delete("/:id", userController.delete);
-router.get("/:id/dates",userController.getDatesByUserId);
-router.put("/:id/role",userController.updateRole);
-
+//Admin and manager routes
+router.post("/",auth, authorize(["admin"]), authorize(["manager"]),  userController.create);
+router.get("/", auth, authorize(["admin"]), authorize(["manager"]), userController.getAll);
+router.get("/:id",auth, authorize(["admin"]), authorize(["manager"]), userController.getById);
+router.put("/profile/:id",auth, authorize(["admin"]), authorize(["manager"]), userController.update);
+router.delete("/profile/:id",auth, authorize(["admin"]), authorize(["manager"]), userController.delete);
+router.put("/:id/role",auth, authorize(["admin"]), userController.updateRole);
+router.delete("/:id", auth, authorize(["admin"]), userController.delete);
 
 export default router;

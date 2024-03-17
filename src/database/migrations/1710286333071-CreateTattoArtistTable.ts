@@ -19,12 +19,23 @@ export class CreateTattoArtistTable1710286333071 implements MigrationInterface {
                     type: "varchar",
                     length: "50",
                  },
+               //   {
+               //    name: "last_name",
+               //    type: "varchar",
+               //    length: "50",
+               //    },
                  {
                     name: "email",
                     type: "varchar",
                     length: "100",
                     isUnique: true,
                  },
+               //   {
+               //    name: "password",
+               //    type: "varchar",
+               //    length: "10",
+               //    isUnique: true,
+               // },
                 ]
            }),
            true

@@ -10,7 +10,7 @@ export const auth = (req: Request, res: Response, next: NextFunction) => {
       });
       return;
    }
-
+   //Decodifica el tocken
    try {
       const decoded = jwt.verify(
          token,

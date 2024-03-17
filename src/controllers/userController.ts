@@ -243,4 +243,24 @@ export const userController = {
             });
         }
     },
+
+    async getProfile(req: Request, res: Response): Promise<void> {
+        try {
+           const userId = req.tokenData.userId;
+  
+           const user = await User.findOne({
+              relations: {
+                 role: true,
+              },
+              where: { id: userId },
+           });
+  
+           res.json(user);
+        } catch (error) {
+           res.status(500).json({
+              message: "Failed to retrieve user",
+           });
+        }
+     },
+
 };

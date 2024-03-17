@@ -1,28 +1,20 @@
 import express from "express";
+import { artistController } from "../controllers/artistController";
+import { auth } from "../middlewares/auth";
+import { authorize } from "../middlewares/authorize";
 
 
 const router = express.Router();
 
-//User routes
-router.get("/", (req, res) => {
-    res.send("Get tatto Artists");
-});
+//Artist routes
+router.get("/:id", artistController.getById);
+router.put("/:id", artistController.update);
+router.delete("/:id", artistController.delete);
 
-router.get("/:id", (req, res) => {
-    res.send("Get tatto Artists by id");
-});
 
-//Protected routes (Admin, Manager)
-router.post("/:id", (req, res) => {
-    res.send("Post tatto artists");
-});
 
-router.put("/:id", (req, res) => {
-    res.send("update tatto artists");
-});
 
-router.delete("/:id", (req, res) => {
-    res.send("delete tatto artists");
-});
+router.post("/",auth, authorize(["admin"]), artistController.create);
+router.get("/",auth, authorize(["admin"]), authorize(["manager"]), artistController.getAll);
 
 export default router;
