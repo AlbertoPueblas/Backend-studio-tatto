@@ -65,9 +65,6 @@ Tecnologías utilizadas:
             }
         ```
 
-
-
-    - ...
 </details>
 
 ## Futuras correcciones
