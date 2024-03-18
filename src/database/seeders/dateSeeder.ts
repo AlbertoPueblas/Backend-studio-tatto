@@ -3,7 +3,7 @@ import { getRandomValueFromArray } from "../../helpers/common";
 import { Seeder } from "./Seeders";
 import { User } from "../../models/User";
 import { DateFactory } from "../factories/DateFactory";
-import { Dates } from "../../models/Dates";
+import { Dates } from "../../models/dates";
 import { Job } from "../../models/Job";
 
 

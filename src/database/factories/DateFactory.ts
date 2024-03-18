@@ -1,4 +1,4 @@
-import { Dates } from "../../models/Dates";
+import { Dates } from "../../models/dates";
 import { Factory } from "./Factory";
 import { faker } from "@faker-js/faker";
 

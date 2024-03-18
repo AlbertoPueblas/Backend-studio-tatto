@@ -9,6 +9,8 @@ const router = express.Router();
 router.get("/profile", auth, userController.getProfile);
 router.put("/profile", auth, userController.update);
 router.get("/:id/dates",auth, userController.getDatesByUserId);
+router.delete("/:id", auth, userController.delete);
+
 
 //Admin and manager routes
 router.post("/",auth, authorize(["admin"]), authorize(["manager"]),  userController.create);
@@ -17,6 +19,5 @@ router.get("/:id",auth, authorize(["admin"]), authorize(["manager"]), userContro
 router.put("/profile/:id",auth, authorize(["admin"]), authorize(["manager"]), userController.update);
 router.delete("/profile/:id",auth, authorize(["admin"]), authorize(["manager"]), userController.delete);
 router.put("/:id/role",auth, authorize(["admin"]), userController.updateRole);
-router.delete("/:id", auth, authorize(["admin"]), userController.delete);
 
 export default router;

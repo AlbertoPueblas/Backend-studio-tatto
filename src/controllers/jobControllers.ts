@@ -1,5 +1,5 @@
 import { Request, Response } from "express"
-import { Dates } from "../models/Dates";
+import { Dates } from "../models/dates";
 import { UserRoles } from "../constants/UserRole";
 import { Job } from "../models/Job";
 
@@ -67,7 +67,7 @@ export const jobController = {
             const totalPages = Math.ceil(totalJobs / limit);
 
             res.status(200).json({
-                users: UserRoles,
+                jobs: job.slice((page - 1) * limit, page * limit),
                 current_page: page,
                 total_Jobs: totalJobs,
             });

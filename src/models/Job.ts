@@ -9,7 +9,7 @@ import {
     PrimaryGeneratedColumn
 } from "typeorm"
 import { TattoArtist } from "./TattoArtist";
-import { Dates } from "./Dates";
+import { Dates } from "./dates";
 
 @Entity('jobs')
 export class Job extends BaseEntity {
