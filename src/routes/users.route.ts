@@ -11,9 +11,8 @@ router.put("/profile", auth, userController.update);
 router.get("/:id/dates",auth, userController.getDatesByUserId);
 router.delete("/:id", auth, userController.delete);
 
-
 //Admin and manager routes
-router.post("/",auth, authorize(["admin"]), authorize(["manager"]),  userController.create);
+router.post("/",auth, authorize(["admin"]),  userController.create);
 router.get("/", auth, authorize(["admin"]), authorize(["manager"]), userController.getAll);
 router.get("/:id",auth, authorize(["admin"]), authorize(["manager"]), userController.getById);
 router.put("/profile/:id",auth, authorize(["admin"]), authorize(["manager"]), userController.update);

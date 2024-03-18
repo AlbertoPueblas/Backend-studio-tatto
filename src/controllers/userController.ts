@@ -27,7 +27,7 @@ export const userController = {
                 firstName: firstName,
                 lastName: lastName,
                 email: email,
-                password: hashedPassword,
+                password: hashedPassword, 
                 isActive: isActive,
                 role: UserRoles.CLIENT,
             });
@@ -51,13 +51,11 @@ export const userController = {
             const limit = Number(req.query.limit) || 250;
 
             const [users, totalUsers] = await User.findAndCount({
-                relations: {
-                    role: true,
-                },
                 select: {
-                    role: {
-                        name: true,
-                    },
+                        firstName: true,
+                        lastName: true,
+                        id: true,
+                        email: true,
                 },
                 skip: (page - 1) * limit,
                 take: limit,
@@ -91,9 +89,12 @@ export const userController = {
             const userId = Number(req.params.id);
 
             const user = await User.findOne({
-                relations: {
-                    role: true,
-                },
+                select: {
+                    firstName: true,
+                    lastName: true,
+                    id: true,
+                    email: true,
+            },
                 where: { id: userId },
             });
 
