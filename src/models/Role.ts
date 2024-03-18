@@ -7,6 +7,7 @@ import {
  } from "typeorm";
  import { User } from "./User";
  
+ //-----------------------------------------------------------------------------
 
 @Entity("roles")
 export class Role extends BaseEntity {

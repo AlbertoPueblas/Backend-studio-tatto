@@ -3,4 +3,5 @@ export const SeederConfig = {
     MANAGER: 3,
     CLIENT: 90,
     DATES: 80,
+    JOBS: 70,
 }

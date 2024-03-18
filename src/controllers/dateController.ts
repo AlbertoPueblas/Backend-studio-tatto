@@ -71,7 +71,7 @@ export const dateController = {
             const totalPages = Math.ceil(totalDates / limit);
 
             res.status(200).json({
-                dates: dates.slice((page - 1) * limit, page * limit),
+                users: UserRoles,
                 current_page: page,
                 per_page: limit,
                 total_pages: totalPages,

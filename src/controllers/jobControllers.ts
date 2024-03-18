@@ -1,6 +1,5 @@
 import { Request, Response } from "express"
 import { Dates } from "../models/dates";
-import { UserRoles } from "../constants/UserRole";
 import { Job } from "../models/Job";
 
 //---------------------------------------------------------------------------
