@@ -15,6 +15,6 @@ router.delete("/:id", artistController.delete);
 
 
 router.post("/",auth, authorize(["admin"]), artistController.create);
-router.get("/",auth, authorize(["admin"]), authorize(["manager"]), artistController.getAll);
+router.get("/",auth, authorize((["admin"]) &&(["manager"])), artistController.getAll);
 
 export default router;

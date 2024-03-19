@@ -1,7 +1,6 @@
 import { Request, Response } from "express"
 import { Dates } from "../models/dates";
-import { UserRoles } from "../constants/UserRole";
-
+import { userInfo } from "os";
 
 
 //---------------------------------------------------------------------------
@@ -12,9 +11,9 @@ export const dateController = {
     async create(req: Request, res: Response): Promise<void> {
         try {
 
-            const { appointmentDate, user, job, artist } = req.body;
+            const { appointmentDate, user, job,  } = req.body;
 
-            if (!appointmentDate || !user || !job ||  !artist ) {
+            if (!appointmentDate || !user || !job  ) {
                 res.status(400).json({
                     message: "All fields must be provided",
                 });
@@ -22,12 +21,10 @@ export const dateController = {
             }
 
             const dateToCreate = Dates.create({
-                appointmentDate: appointmentDate ,
-                userId: user.id,
-                jobId: job.id,
+                appointmentDate: true ,
                 user: user,
                 job: job,
-            });
+             })
 
 
             // Save to BD
@@ -54,12 +51,12 @@ export const dateController = {
             const limit = Number(req.query.limit) || 250;
             
             const [dates, totalDates] = await Dates.findAndCount({
-                relations: {
-                    user: true,
-                    job: true,
-                },
-      
-           
+                select:{
+                    id: true,
+                    appointmentDate: true,
+                    userId: true,
+                    jobId: true,
+                }
             });
             if (dates.length === 0) {
                 res.status(404).json({
@@ -89,11 +86,6 @@ export const dateController = {
             const dateId = Number(req.params.id);
 
             const date = await Dates.findOne({
-                    relations: {
-                        user: true,
-                        job: true,
-                    },
-            
                     where: { id: dateId },
                 });
 

@@ -7,15 +7,12 @@ Objetivo
 En este proyecto no usamos front-end. Será todo realizado con back-end.
 En primer lugar, he preparado las carpetas y dependencias, el siguiente paso es crear la base de datos y conectar con el servidor, para ello disponemos de una amplia carta de librerías donde encontrar información.
 Una vez realizada la conexión, disponer todo para crear las migraciones, seeders, factory una vez comprobado que todo funciona como debería creamos las rutas para poder probarlas con insomnia o postman para poder verificar que las rutas funcionan. Como reto, este proyecto incluye como opción libre crear administradores. 
-## Deploy 🚀
-<div align="center">it´s comming
-    <a href="https://www.google.com"><strong>Url a producción </strong></a>🚀🚀🚀
-</div>
+
 
 ## Stack
 Tecnologías utilizadas:
 
-![](https://img.shields.io/badge/TypeScript-lightblue?logo=TypeScript) ![](https://img.shields.io/badge/insomnia-purple?logo=Insomnia) ![](https://img.shields.io/badge/docker-darkblue?logo=docker) ![](https://img.shields.io/badge/node-green?logo=node.js) ![](https://img.shields.io/badge/npm-red?logo=npm)
+![](https://img.shields.io/badge/TypeScript-lightblue?logo=TypeScript) ![](https://img.shields.io/badge/insomnia-purple?logo=Insomnia) ![](https://img.shields.io/badge/node-green?logo=node.js) ![](https://img.shields.io/badge/npm-red?logo=npm)
 
 
 
@@ -45,7 +42,7 @@ Tecnologías utilizadas:
 
             POST http://localhost:3000/api/register
         body:
-        ``` js
+        ``` ts
             {
                 "user": "Alex",
                 "email": "Alex@mail.com",
@@ -57,13 +54,173 @@ Tecnologías utilizadas:
 
             POST http://localhost:3000/api/login  
         body:
-        ``` js
+        ``` ts
             {
                 "user": "Alex",
                 "email": "Alex@mail.com",
                 "password": "pasword"
             }
         ```
+
+    -   GET ALL
+
+        POST http://localhost:3000/api/user
+
+    user:
+    ``` ts
+        {
+            "user": "Alex",
+            "email": "Alex@mail.com",
+            "password": "pasword"
+        } 
+        {
+            "id": 1,
+            "firstName": "Maynard",
+            "lastName": "Kerluke",
+            "email": "admin1@admin.com"
+        },
+        {
+            "id": 2,
+            "firstName": "Alisha",
+            "lastName": "Ruecker-Borer",
+            "email": "manager1@manager.com"
+        },
+    ```
+    - GET BY ID
+
+        GET http://localhost:3000/api/user/1  
+    user:
+    ``` ts
+        {
+            "id": 1,
+            "firstName": "Maynard",
+            "lastName": "Kerluke",
+            "email": "admin1@admin.com"
+        },
+    ```
+    - UPGRADE ROLE BY ID
+
+        POST http://localhost:3000/api/user/13/role  
+    PUT:
+    ```ts
+        {
+            "id": 13,
+            "firstName": "Drugovich",
+            "lastName": "Kingter",
+            "email": "drugo@mail.com"
+        },
+    //------------------------------------------------
+        {
+            "message": "Role has been updated"
+        }
+    ```
+    - UPGRADE PROFILE BY ID
+
+        PUT http://localhost:3000/api/user/profile/13  
+    user:
+    ```ts
+        {
+            "id": 13,
+            "firstName": "Drugo",
+            "lastName": "Kingter",
+            "email": "drugo@mail.com"
+        },
+    //------------------------------------------------
+        {
+            "message": "Profile has been updated"
+        }
+    ```
+    - DELETE USER BY ID
+
+        DELETE http://localhost:3000/api/user/13  
+    user:
+    ```ts
+        {
+            "id": 13,
+            "firstName": "Drugo",
+            "lastName": "Kingter",
+            "email": "drugo@mail.com"
+        },
+    //------------------------------------------------
+        {
+            "message": "User deleted successfully"
+        }
+    ```
+    - DELETE USER BY CLIENT
+
+        DELETE http://localhost:3000/api/user/profile/13  
+    user:
+    ```ts
+        {
+            "id": 13,
+            "firstName": "Drugo",
+            "lastName": "Kingter",
+            "email": "drugo@mail.com"
+        },
+    //------------------------------------------------
+        {
+            "message": "User deleted successfully"
+        }
+    ```
+    - CREATE APPOINTMENT BY ID
+
+        CREATE http://localhost:3000/api/dates/4  
+    user:
+    ```ts
+        {
+			"id": 4,
+			"appointmentDate": "2025-01-11T13:22:12.000Z",
+			"userId": 65,
+			"jobId": 28
+		},
+    //------------------------------------------------
+        {
+            "message": "Appointment successfully"
+        }
+    ```
+    - UPGRADE APPOINTMENT BY ID
+
+        PUT http://localhost:3000/api/dates/4  
+    user:
+    ```ts
+        {
+			"id": 4,
+			"appointmentDate": "2025-01-11T13:22:12.000Z",
+			"userId": 65,
+			"jobId": 28
+		},
+    //------------------------------------------------
+        {
+            "message": "Appointment upgrade successfully"
+        }
+    ```
+    - DELETE APPOINTMENT BY ID
+
+        DELETE http://localhost:3000/api/dates/4  
+    user:
+    ```ts
+        {
+			"id": 4,
+			"appointmentDate": "2025-01-11T13:22:12.000Z",
+			"userId": 65,
+			"jobId": 28
+		},
+    //------------------------------------------------
+        {
+            "message": "Delete appointment successfully"
+        }
+    ```
+    - GET ARTIST BY ID 
+
+        GET http://localhost:3000/api/dates/4  
+    user:
+    ```ts
+        {
+	    "firstName": "Lou",
+	    "email": "Jaiden77@gmail.com"
+		},
+    ```
+
 
 </details>
 

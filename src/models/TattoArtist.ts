@@ -7,6 +7,8 @@ import {
 } from "typeorm"
 import { Job } from "./Job";
 
+//-----------------------------------------------------------------------------
+
 @Entity('tattoArtist')
 export class TattoArtist extends BaseEntity {
     @PrimaryGeneratedColumn()

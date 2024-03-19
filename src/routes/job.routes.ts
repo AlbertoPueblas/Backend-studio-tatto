@@ -13,6 +13,6 @@ router.put("/:id", jobController.update);
 router.delete("/:id", jobController.delete);
 
 //protected routes
-router.get("/",auth, authorize(["admin"]), authorize(["manager"]),jobController.getAll);
+router.get("/",auth, authorize((["admin"]) &&(["manager"])),jobController.getAll);
 
 export default router;

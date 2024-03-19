@@ -1,6 +1,8 @@
 import { Request, Response } from "express";
 import { TattoArtist } from "../models/TattoArtist";
 import { UserRoles } from "../constants/UserRole";
+import { Dates } from "../models/dates";
+
 
 
 //------------------------------------------------------------------------------
@@ -156,4 +158,39 @@ export const artistController = {
         }
     },
 
-};
+//     async getDatesByArtist(req: Request, res: Response): Promise < void> {
+//         try {
+//             const artist = Number(req.params.id);
+    
+//             const user = await TattoArtist.findOne({
+//                 relations: {
+//                     firstName: true,
+//                     email: true,
+//                     appointmentDate: true,
+//                     userDates: true,
+//                     job: true,
+//                     user: true,
+//                 },
+//                 where: { id: dates },
+//             });
+//             if(!user) {
+//                 res.status(404).json({ message: "User not found" });
+//                 return;
+//             }
+//             const userDates = date.artist;
+//         if (userDates?.length === 0) {
+//             res.status(404).json({
+//                 message: "User has no dates",
+//             });
+//             return;
+//         }
+//             res.status(200).json(userDates);
+//         } catch (error) {
+//             res.status(500).json({
+//                 message: "Failed to delete user"});
+//         }
+    
+        
+//     }
+
+ };

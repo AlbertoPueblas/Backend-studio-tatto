@@ -235,7 +235,7 @@ export const userController = {
 
             await User.save(userToUpdate);
             res.status(202).json({
-                message: "User has been updated",
+                message: "Role has been updated",
             });
 
         } catch (error) {

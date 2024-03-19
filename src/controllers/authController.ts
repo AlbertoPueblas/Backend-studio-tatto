@@ -13,9 +13,9 @@ export const authController = {
     
         try {
 
-            const { firstName,lastName, email, password } = req.body;
+            const { firstName,lastName, email, password, UserRole } = req.body;
 
-            if (!firstName || !email || !password ||!lastName ) {
+            if (!firstName || !email || !password ||!lastName || UserRole ) {
                 res.status(400).json({
                     message: "All fields must be provided",
                 });
@@ -49,9 +49,9 @@ export const authController = {
 
     async login(req: Request, res: Response): Promise<void> {
         try {
-        const { email, password } = req.body;
+        const { email, password, id } = req.body;
   
-           if (!email || !password) {
+           if (!email || !password || id) {
               res.status(400).json({
                  message: "email and password must be provided",
               });
