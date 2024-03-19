@@ -64,7 +64,7 @@ Tecnologías utilizadas:
 
     -   GET ALL
 
-        POST http://localhost:3000/api/user
+        GET http://localhost:3000/api/user
 
     user:
     ``` ts
@@ -100,8 +100,8 @@ Tecnologías utilizadas:
     ```
     - UPGRADE ROLE BY ID
 
-        POST http://localhost:3000/api/user/13/role  
-    PUT:
+        PUT http://localhost:3000/api/user/13/role  
+    user:
     ```ts
         {
             "id": 13,
@@ -162,10 +162,10 @@ Tecnologías utilizadas:
             "message": "User deleted successfully"
         }
     ```
-    - CREATE APPOINTMENT BY ID
+    - CREATE APPOINTMENT
 
-        CREATE http://localhost:3000/api/dates/4  
-    user:
+        POST http://localhost:3000/api/dates/
+    dates:
     ```ts
         {
 			"id": 4,
@@ -181,11 +181,11 @@ Tecnologías utilizadas:
     - UPGRADE APPOINTMENT BY ID
 
         PUT http://localhost:3000/api/dates/4  
-    user:
+    dates:
     ```ts
         {
 			"id": 4,
-			"appointmentDate": "2025-01-11T13:22:12.000Z",
+			"appointmentDate": "2025-01-22:12",
 			"userId": 65,
 			"jobId": 28
 		},
@@ -197,7 +197,7 @@ Tecnologías utilizadas:
     - DELETE APPOINTMENT BY ID
 
         DELETE http://localhost:3000/api/dates/4  
-    user:
+    dates:
     ```ts
         {
 			"id": 4,
@@ -210,16 +210,148 @@ Tecnologías utilizadas:
             "message": "Delete appointment successfully"
         }
     ```
-    - GET ARTIST BY ID 
+    - CREATE ARTIST BY ADMIN
 
-        GET http://localhost:3000/api/dates/4  
-    user:
+        POST http://localhost:3000/artists  
+    artist:
     ```ts
         {
-	    "firstName": "Lou",
-	    "email": "Jaiden77@gmail.com"
-		},
+            "firstName": "Mark",
+            "email": "mark@user.com",
+            "id": 2
+        }
+    //------------------------------------------------
+        {
+            "message": "Artist has been created"
+        }
     ```
+    - GET ALL ARTIST ADMIN
+
+        GET http://localhost:3000/api/artists  
+    artist:
+    ```ts
+        {
+        "message": "Tatto artists found",
+        "user": {
+        "id": 3,
+        "name": "Artist"
+        },
+        "Name": [
+        {
+        "firstName": "Alberto",
+        "email": "Christop.Cronin@hotmail.com"
+        },
+        {
+        "firstName": "Elza",
+        "email": "Kobe.Toy46@gmail.com"
+        },
+            	],
+        }
+    	"totalArtist": 2
+
+    ```
+    - GET ARTIST BY ID 
+
+        GET http://localhost:3000/api/artists/5  
+    artist:
+    ```ts
+        {
+        "firstName": "Lou",
+        "email": "Jaiden77@gmail.com"
+        },
+    ```
+    - UPGRADE ARTIST BY ID 
+
+        PUT http://localhost:3000/api/artist/1  
+    artist:
+    ```ts
+        {
+        "firstName": "Alberto",
+        "email": "Christop.Cronin@hotmail.com"
+        },
+        //------------------------------------
+        {
+        "firstName": "Christop",
+        "email": "Christop.Cronin@hotmail.com"
+        },
+    ```
+
+    - DELETE 
+
+        DELETE http://localhost:3000/api/artist/3  
+    artist:
+    ``` ts
+        {
+			"firstName": "Armando",
+			"email": "June_Prosacco53@hotmail.com"
+		},
+        //---------------------------------------
+        {
+	        "message": "Employed deleted successfully"
+        },
+    ```
+    - CREATE JOB BY ADMIN
+
+        POST http://localhost:3000/JOB/  
+    job:
+    ```ts
+        {
+	    "job": "tatto dragon",
+	    "tattoArtist": "2"
+        }
+    //------------------------------------------------
+        {
+            "message": "Job has been created"
+        }
+    ```
+    - GET ALL JOB BY ADMIN
+
+        GET http://localhost:3000/job/  
+    job:
+    ```ts
+        {
+	    "job": "tatto dragon",
+	    "tattoArtist": "2"
+        }
+         {
+	    "job": "tatto tribal",
+	    "tattoArtist": "3"
+        }
+    ```
+    - UPGRADE ALL JOB BY ADMIN
+
+        PUT http://localhost:3000/job/  
+    job:
+    ```ts
+        {
+	    "job": "tatto dragon",
+	    "tattoArtist": "2"
+        }
+        //---------------------------------
+         {
+	    "job": "tatto tribal",
+	    "tattoArtist": "3"
+        }
+        //---------------------------------
+        {
+        "message": "job has been updated"
+        }
+    ```
+    - DELETE JOB BY ID
+
+        DELETE http://localhost:3000/job/54  
+    job:
+    ```ts
+        {
+	    "job": "tatto dragon",
+	    "tattoArtist": "2"
+        }
+        //---------------------------------
+        {
+        "message": "job deleted succesfully"
+        }
+    ```
+
 
 
 </details>

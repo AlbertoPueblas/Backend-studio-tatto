@@ -1,7 +1,5 @@
 import { Request, Response } from "express"
 import { Dates } from "../models/dates";
-import { userInfo } from "os";
-
 
 //---------------------------------------------------------------------------
 
@@ -11,9 +9,9 @@ export const dateController = {
     async create(req: Request, res: Response): Promise<void> {
         try {
 
-            const { appointmentDate, user, job,  } = req.body;
+            const { appointmentDate, userId, jobId  } = req.body;
 
-            if (!appointmentDate || !user || !job  ) {
+            if ( !appointmentDate || !userId || !jobId ) {
                 res.status(400).json({
                     message: "All fields must be provided",
                 });
@@ -21,10 +19,12 @@ export const dateController = {
             }
 
             const dateToCreate = Dates.create({
-                appointmentDate: true ,
-                user: user,
-                job: job,
-             })
+                appointmentDate: appointmentDate ,
+                userId: userId,
+                jobId: jobId,
+
+                
+             });
 
 
             // Save to BD

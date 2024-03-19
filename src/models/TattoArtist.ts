@@ -2,10 +2,13 @@ import {
     BaseEntity, 
     Column, 
     Entity,  
+    JoinColumn,  
+    ManyToOne,  
     OneToMany, 
     PrimaryGeneratedColumn 
 } from "typeorm"
 import { Job } from "./Job";
+import { Role } from "./Role";
 
 //-----------------------------------------------------------------------------
 
@@ -28,4 +31,6 @@ export class TattoArtist extends BaseEntity {
 
 @OneToMany(() => Job, (job) => job.tattoArtist)
    jobs?: Job[];
-}
+   
+};
+   

@@ -7,7 +7,7 @@ import { auth } from "../middlewares/auth";
 const router = express.Router();
 
 //User routes
-router.post("/", jobController.create);
+router.post("/",auth,authorize((["admin"]) &&(["manager"])), jobController.create);
 router.get("/:id", jobController.getById);
 router.put("/:id", jobController.update);
 router.delete("/:id", jobController.delete);

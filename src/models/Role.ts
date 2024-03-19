@@ -6,6 +6,7 @@ import {
     OneToMany,
  } from "typeorm";
  import { User } from "./User";
+import { TattoArtist } from "./TattoArtist";
  
  //-----------------------------------------------------------------------------
 
@@ -21,4 +22,6 @@ export class Role extends BaseEntity {
 
 @OneToMany(() => User, (user) => user.role)
     users?: User[];
-}
+
+};
+    

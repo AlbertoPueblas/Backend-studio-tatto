@@ -20,6 +20,7 @@ export class Dates extends BaseEntity {
     appointmentDate!: Date;
 
 
+
     @Column({name: "user_id"})
     userId!:number;
 

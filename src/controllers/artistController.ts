@@ -59,14 +59,12 @@ export const artistController = {
                 return;
             }
 
-            const totalEmployed = Math.ceil(totalArtist / limit);
-
             res.status(200).json({
                 message: "Tatto artists found",
-                users: UserRoles,
-                current_page: page,
-                per_page: limit,
-                total_tatto_artist: totalEmployed,
+                user: UserRoles.ARTIST,
+                Name: artist,
+                totalArtist: totalArtist,
+
             });
 
         } catch (error) {
@@ -123,7 +121,7 @@ export const artistController = {
                     ...resArtistData,
                 };
                 
-                await TattoArtist.save(artistToUpdate);
+                await TattoArtist.save(updatedArtist);
 
                 res.status(202).json({
                     message: "Date has been updated",

@@ -5,7 +5,7 @@ import { faker } from "@faker-js/faker";
 export class DateFactory extends Factory<Dates> {
     protected generate(): Dates {
         return{
-            appointmentDate: faker.date.future()
+            appointmentDate: faker.date.anytime()
         } as Dates;
       }
     }
