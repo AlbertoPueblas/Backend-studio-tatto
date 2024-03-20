@@ -2,6 +2,8 @@ import { Dates } from "../../models/dates";
 import { Factory } from "./Factory";
 import { faker } from "@faker-js/faker";
 
+//-----------------------------------------------------------------------------
+
 export class DateFactory extends Factory<Dates> {
     protected generate(): Dates {
         return{

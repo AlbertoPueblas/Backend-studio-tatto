@@ -201,7 +201,7 @@ export const userController = {
             res.status(200).json(userDates);
         } catch (error) {
             res.status(500).json({
-                message: "Failed to delete user"});
+                message: "Failed to find"});
         }
     
         

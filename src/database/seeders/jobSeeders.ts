@@ -8,7 +8,7 @@ import { Seeder } from "./Seeders";
 
 export class jobSeeder extends Seeder {
    protected async generate(): Promise<void> {
-      const { JOBS} = SeederConfig;
+      const { JOBS } = SeederConfig;
 
       const tattoArtists = await TattoArtist.find();
 

@@ -3,6 +3,8 @@ import { TattoArtist } from "../../models/TattoArtist";
 import { TattoArtistFactory } from "../factories/TattoArtistFactory";
 import { Seeder } from "./Seeders"
 
+//------------------------------------------------------------------------------
+
 export class tattoSeeder extends Seeder {
    protected async generate(): Promise<void> {
       const {MANAGER } = SeederConfig;

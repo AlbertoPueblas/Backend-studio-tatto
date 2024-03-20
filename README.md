@@ -359,7 +359,8 @@ Tecnologías utilizadas:
 ## Futuras correcciones
 [ ] Crear mas datos sobre algunas tablas.  
 [ ] Mejorar codigo  
-[ ] Validaciones  
+[ ] Corregir formato de fecha para las citas  
+[ ] Optimizar código
 
 
 ## Contribuciones

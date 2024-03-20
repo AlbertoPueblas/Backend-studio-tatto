@@ -2,13 +2,10 @@ import {
     BaseEntity, 
     Column, 
     Entity,  
-    JoinColumn,  
-    ManyToOne,  
     OneToMany, 
     PrimaryGeneratedColumn 
 } from "typeorm"
 import { Job } from "./Job";
-import { Role } from "./Role";
 
 //-----------------------------------------------------------------------------
 
@@ -20,17 +17,16 @@ export class TattoArtist extends BaseEntity {
     @Column({name: "first_name"})
     firstName!: string
 
-    // @Column({name: "last_name"})
-    // lastName!: string
-
     @Column({name: "email"})
     email!: string
 
-    // @Column({ name: "password" })
-    // password!: string;
+    // @Column({name: "tattoArtist_id"})
+    // tattoArtist!: number;
 
-@OneToMany(() => Job, (job) => job.tattoArtist)
+// @OneToMany(() => Dates, (dates) => dates.tattoArtist)
+//    dates?: Dates[];
+
+   @OneToMany(() => Job, (job) => job.tattoArtist)
    jobs?: Job[];
-   
 };
    

@@ -31,12 +31,17 @@ export class CreateTattoArtistTable1710286333071 implements MigrationInterface {
                     isUnique: true,
                  },
                //   {
+                  // name: "tattoArtist_id",
+                  // type: "int",
+                  // },
+               //   {
                //    name: "password",
                //    type: "varchar",
                //    length: "10",
                //    isUnique: true,
                // },
-                ]
+                ],
+
            }),
            true
         );

@@ -1,5 +1,7 @@
 import { Request, Response } from "express"
 import { Dates } from "../models/dates";
+import { Job } from "../models/Job";
+import { User } from "../models/User";
 
 //---------------------------------------------------------------------------
 
@@ -157,6 +159,26 @@ export const dateController = {
             });
         }
     },
+    async getDatesByArtist(req: Request, res: Response): Promise < void> {
+        try {
+            const tatooArtistId = req.tokenData.userId;
+            const datesForShows = await Dates.findOne({
+                select:{
+                    id: true,
+                    appointmentDate: true,
+                    userId: true,
+                    jobId: true,
+                },
+            where: { id: tatooArtistId },
+        });
+            res.status(200).json(datesForShows);
+        } catch (error) {
+            res.status(500).json({
+                message: "Failed to retrieve Dates",});
+        }
+    
+        
+    }
 
 };
 

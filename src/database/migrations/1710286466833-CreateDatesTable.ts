@@ -26,6 +26,10 @@ export class CreateDatesTable1710286466833 implements MigrationInterface {
                     name: "job_id",
                     type: "int",
                  },
+               //   {
+               //    name: "tattoArtist_id",
+               //    type: "int",
+               //    },
 
               ],
               foreignKeys: [
@@ -38,7 +42,12 @@ export class CreateDatesTable1710286466833 implements MigrationInterface {
                   columnNames: ["job_id"],
                   referencedTableName: "jobs",
                   referencedColumnNames: ["id"],
-               },
+                  },
+                  // {
+                  //    columnNames: ["tattoArtist_id"],
+                  //    referencedTableName: "tattoArtist",
+                  //    referencedColumnNames: ["id"],
+                  // },
               ],
            }),
            true
