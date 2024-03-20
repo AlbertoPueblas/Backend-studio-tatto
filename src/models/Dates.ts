@@ -20,17 +20,14 @@ export class Dates extends BaseEntity {
     @Column({name: "appointment_date"})
     appointmentDate!: Date;
 
-
-
     @Column({name: "user_id"})
     userId!:number;
 
     @Column({name: "job_id"})
     jobId!:number;
 
-    // @Column({name: "tattoArtist_id"})
-    // tattoArtistId!:number;
-
+    @Column({name: "tattoArtist_id"})
+    tattoArtistId!:string;
 
 @ManyToOne(() => User, (user) => user.dates)
     @JoinColumn({ name: "user_id"})
@@ -40,7 +37,7 @@ export class Dates extends BaseEntity {
     @JoinColumn({ name: "job_id"})
     job!:Job;
 
-// @ManyToOne(() => TattoArtist, (tattoArtist) => tattoArtist.dates)
-//     @JoinColumn({ name: "tattoArtist_id"})
-//     tattoArtist?:TattoArtist;
+@ManyToOne(() => TattoArtist, (tattoArtist) => tattoArtist.dates)
+    @JoinColumn({ name: "tattoArtist_id"})
+    tattoArtist!:TattoArtist;
 }

@@ -11,6 +11,7 @@ export class TattoArtistFactory extends Factory<TattoArtist> {
     protected generate(): TattoArtist {
         return{
             firstName: faker.person.firstName(),
+            lastName: faker.person.lastName(),
             email: faker.internet.email(),
         } as TattoArtist;
       }

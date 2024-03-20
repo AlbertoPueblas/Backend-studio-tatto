@@ -1,6 +1,6 @@
 import { MigrationInterface, QueryRunner, Table } from "typeorm";
 
-export class CreateTattoArtistTable1710286333071 implements MigrationInterface {
+export class CreateTattoArtistTable1710958684615 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.createTable(
@@ -19,11 +19,11 @@ export class CreateTattoArtistTable1710286333071 implements MigrationInterface {
                     type: "varchar",
                     length: "50",
                  },
-               //   {
-               //    name: "last_name",
-               //    type: "varchar",
-               //    length: "50",
-               //    },
+                 {
+                  name: "last_name",
+                  type: "varchar",
+                  length: "50",
+                  },
                  {
                     name: "email",
                     type: "varchar",
@@ -31,17 +31,28 @@ export class CreateTattoArtistTable1710286333071 implements MigrationInterface {
                     isUnique: true,
                  },
                //   {
+               //      name: "password",
+               //      type: "varchar",
+               //      length: "10",
+               //      isUnique: true,
+               //    },
+                  // {
                   // name: "tattoArtist_id",
                   // type: "int",
                   // },
-               //   {
-               //    name: "password",
-               //    type: "varchar",
-               //    length: "10",
-               //    isUnique: true,
-               // },
-                ],
-
+                  {
+               name: "is_active",
+               type: "boolean",
+               default:true,
+              },
+            ],
+            // foreignKeys: [
+            // {
+            //    columnNames: ["tattoArtist_id"],
+            //    referencedTableName: "tattoArtist",
+            //    referencedColumnNames: ["id"],
+            // },
+            // ],
            }),
            true
         );

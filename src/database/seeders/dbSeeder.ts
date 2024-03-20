@@ -1,7 +1,7 @@
 import { RoleSeeder } from "./roleSeeder";
 import { dateSeeder } from "./dateSeeder";
 import { jobSeeder } from "./jobSeeders";
-import { tattoSeeder } from "./tattoArtistSeeder";
+import { tattoArtistSeeder } from "./tattoArtistSeeder";
 import { UserSeeder } from "./userSeeder";
 
 
@@ -10,7 +10,7 @@ import { UserSeeder } from "./userSeeder";
     
     await new RoleSeeder().start();
     await new UserSeeder().start();
-    await new tattoSeeder().start();
+    await new tattoArtistSeeder().start();
     await new jobSeeder().start();
     await new dateSeeder().start();
     
