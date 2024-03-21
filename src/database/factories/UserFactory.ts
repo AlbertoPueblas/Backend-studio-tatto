@@ -3,6 +3,8 @@ import { Factory } from "./Factory";
 import { faker } from "@faker-js/faker";
 import bcrypt from "bcrypt";
 
+//------------------------------------------------------------------------------
+
 export class UserFactory extends Factory<User> {
    protected generate(): User {
       return {

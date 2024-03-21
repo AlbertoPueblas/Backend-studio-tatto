@@ -10,6 +10,8 @@ import {
 import { Role } from "./Role";
 import { Dates } from "./dates";
 
+//-----------------------------------------------------------------------------
+
 @Entity('users')
 export class User extends BaseEntity {
     @PrimaryGeneratedColumn()

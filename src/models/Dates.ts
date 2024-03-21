@@ -4,6 +4,7 @@ import {
     Entity, 
     JoinColumn, 
     ManyToOne, 
+    OneToMany, 
     PrimaryGeneratedColumn
 } from "typeorm"
 import { User } from "./User";
@@ -27,7 +28,7 @@ export class Dates extends BaseEntity {
     jobId!:number;
 
     @Column({name: "tattoArtist_id"})
-    tattoArtistId!:string;
+    tattoArtistId!:number;
 
 @ManyToOne(() => User, (user) => user.dates)
     @JoinColumn({ name: "user_id"})
@@ -39,5 +40,5 @@ export class Dates extends BaseEntity {
 
 @ManyToOne(() => TattoArtist, (tattoArtist) => tattoArtist.dates)
     @JoinColumn({ name: "tattoArtist_id"})
-    tattoArtist!:TattoArtist;
+    tattoArtist?:TattoArtist;
 }

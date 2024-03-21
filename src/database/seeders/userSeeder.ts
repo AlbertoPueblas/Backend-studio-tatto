@@ -4,6 +4,8 @@ import { User } from "../../models/User";
 import { UserFactory } from "../factories/UserFactory";
 import { Seeder } from "./Seeders"
 
+//------------------------------------------------------------------------------
+
 export class UserSeeder extends Seeder {
    protected async generate(): Promise<void> {
       const { ADMINS, MANAGER, CLIENT,  } =

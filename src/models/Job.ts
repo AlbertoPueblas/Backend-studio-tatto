@@ -5,10 +5,13 @@ import {
     JoinColumn,
     ManyToOne,
     OneToMany,
-    PrimaryGeneratedColumn
+    PrimaryGeneratedColumn,
+    QueryRunner
 } from "typeorm"
 import { TattoArtist } from "./TattoArtist";
 import { Dates } from "./dates";
+
+//------------------------------------------------------------------------
 
 @Entity('jobs')
 export class Job extends BaseEntity {
@@ -16,9 +19,11 @@ export class Job extends BaseEntity {
     id!: number;
 
     @Column({ name: "job" })
-    job!: string;
+    jobs!: string;
 
-    @ManyToOne(() => TattoArtist, (tattoArtist) => tattoArtist.jobs)
+
+
+    @ManyToOne(() => TattoArtist, (tattoArtist) => tattoArtist.job)
     @JoinColumn({ name: "tattoArtist_id" })
     tattoArtist?: TattoArtist;
 

@@ -24,13 +24,15 @@ export class TattoArtist extends BaseEntity {
     @Column({name: "email"})
     email!: string
 
-    // @Column({name: "tattoArtist_id"})
-    // tattoArtistId!: number;
+    @Column({ name: "password" })
+    password!: string;
 
-@OneToMany(() => Dates, (dates) => dates.tattoArtist)
-   dates?: Dates[];
+
+    @OneToMany(() => Dates, (dates) => dates.tattoArtist)
+    dates?: Dates[];
 
    @OneToMany(() => Job, (job) => job.tattoArtist)
-   jobs?: Job[];
+   job?: Job[];
+
 };
    

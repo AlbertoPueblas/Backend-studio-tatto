@@ -7,7 +7,10 @@ import { faker } from "@faker-js/faker";
 export class DateFactory extends Factory<Dates> {
     protected generate(): Dates {
         return{
-            appointmentDate: faker.date.anytime()
+            appointmentDate: faker.date.anytime(),
+            userId: faker.number.int(),
+            jobId: faker.number.int(),
+            tattoArtistId: faker.number.int()
         } as Dates;
       }
     }

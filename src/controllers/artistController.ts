@@ -1,9 +1,6 @@
 import { Request, Response } from "express";
 import { TattoArtist } from "../models/TattoArtist";
 import { UserRoles } from "../constants/UserRole";
-import { Dates } from "../models/dates";
-
-
 
 //------------------------------------------------------------------------------
 
@@ -48,7 +45,8 @@ export const artistController = {
 
             const [artist, totalArtist] = await TattoArtist.findAndCount({
                 select: {
-                    firstName: true, 
+                    firstName: true,
+                    lastName: true, 
                     email: true,
                 },   
             });
@@ -61,7 +59,7 @@ export const artistController = {
 
             res.status(200).json({
                 message: "Tatto artists found",
-                user: UserRoles.ARTIST,
+                user: UserRoles.MANAGER,
                 Name: artist,
                 totalArtist: totalArtist,
 
@@ -79,10 +77,18 @@ export const artistController = {
             const artistId = Number(req.params.id);
 
             const artists = await TattoArtist.findOne({
-                    select: {
-                        firstName: true,
-                        email: true,
-                    },
+                select: {
+                    id: true,
+                    firstName: true,
+                    lastName: true,
+                    email: true,
+                },
+                relations:{
+                    dates:{
+
+                    }
+
+                },
             
                     where: { id: artistId },
                 });
@@ -155,4 +161,33 @@ export const artistController = {
             });
         }
     },
+    async getDatesByArtist(req: Request, res: Response): Promise < void> {
+        try {
+            const artistId = Number(req.params.id);
+            const datesForShows = await TattoArtist.findOne({
+                select: {
+                    id: true,
+                    firstName: true,
+                    lastName: true,
+                    email: true,
+                },
+                relations:{
+                    dates:{
+
+                    }
+
+                },  
+                where: { id: artistId },
+        });
+
+
+            res.status(200).json(datesForShows);
+        } catch (error) {
+            res.status(500).json({
+                message: "Failed to retrieve Dates",});
+        }
+    
+        
+    }
+
  };

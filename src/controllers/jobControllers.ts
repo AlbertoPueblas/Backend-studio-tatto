@@ -20,7 +20,7 @@ export const jobController = {
             }
 
             const jobToCreate = Job.create({
-                job: job,
+                jobs: job,
                 tattoArtist: tattoArtist,
             });
 
@@ -84,7 +84,7 @@ export const jobController = {
 
             const job = await Job.findOne({
                     select: {
-                        job: true,
+                        jobs: true,
                     },
             
                     where: { id: jobId },

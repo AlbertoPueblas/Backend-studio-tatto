@@ -6,7 +6,6 @@ import {
     OneToMany,
  } from "typeorm";
  import { User } from "./User";
-import { TattoArtist } from "./TattoArtist";
  
  //-----------------------------------------------------------------------------
 

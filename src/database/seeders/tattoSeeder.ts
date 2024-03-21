@@ -4,7 +4,7 @@ import { getRandomValueFromArray } from "../../helpers/common";
 import { Job } from "../../models/Job";
 import { TattoArtist } from "../../models/TattoArtist";
 import { User } from "../../models/User";
-import { TattoArtistFactory } from "../factories/TattoArtistFactory";
+import { TattoArtistFactory } from "../factories/ArtistFactory";
 import { Seeder } from "./Seeders"
 
 //------------------------------------------------------------------------------
@@ -13,16 +13,15 @@ export class tattoArtistSeeder extends Seeder {
    protected async generate(): Promise<void> {
       const { MANAGER } = SeederConfig;
 
-      const firstName = await TattoArtist.find();
-      const lastName = await TattoArtist.find();
-      const email = await TattoArtist.find();
+      const users = await User.find();
+      const job = await TattoArtist.find();
 
-
-      const tattos = new TattoArtistFactory().createMany(MANAGER);
-      tattos.forEach((tatto) => {
-         
+      const newDate = new TattoArtistFactory().createMany(MANAGER);
+      newDate.forEach(() => {
+         // tatto.jobs = getRandomValueFromArray(job) as TattoArtist;
+         // tatto.email = getRandomValueFromArray(users) as User;
       });
 
-      await TattoArtist.save(tattos);
+      await TattoArtist.save(newDate);
    }
 };

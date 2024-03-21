@@ -1,6 +1,8 @@
 import { Request, Response, NextFunction } from "express";
 import { UserRoles } from "../constants/UserRole";
 
+//-----------------------------------------------------------------------
+
 export const authorize = (allowedRoles: string[]) => {
    return (req: Request, res: Response, next: NextFunction) => {
       const userRole = req.tokenData.userRole;
@@ -9,6 +11,7 @@ export const authorize = (allowedRoles: string[]) => {
       if (userRole === UserRoles.ADMIN.name) {
          return next();
       }
+
 
       // Access if the user role is in allowed roles
       if (allowedRoles.includes(userRole)) {

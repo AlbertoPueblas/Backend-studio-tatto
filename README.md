@@ -351,6 +351,30 @@ Tecnologías utilizadas:
         "message": "job deleted succesfully"
         }
     ```
+        - GET DATES BY ARTIST ID
+
+        GET http://localhost:3000/artists/1/dates  
+    job:
+    ```ts
+        "id": 1,
+        "firstName": "Broderick",
+        "lastName": "Predovic",
+        "email": "Kaitlyn.McDermott@hotmail.com",
+		{
+			"id": 1,
+			"appointmentDate": "2025-03-12T18:52:59.000Z",
+			"userId": 43,
+			"jobId": 47,
+			"tattoArtistId": 1
+		},
+		{
+			"id": 2,
+			"appointmentDate": "2024-10-08T07:28:06.000Z",
+			"userId": 72,
+			"jobId": 53,
+			"tattoArtistId": 1
+        }
+    ```
 
 
 

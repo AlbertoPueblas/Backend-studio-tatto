@@ -30,29 +30,13 @@ export class CreateTattoArtistTable1710958684615 implements MigrationInterface {
                     length: "100",
                     isUnique: true,
                  },
-               //   {
-               //      name: "password",
-               //      type: "varchar",
-               //      length: "10",
-               //      isUnique: true,
-               //    },
-                  // {
-                  // name: "tattoArtist_id",
-                  // type: "int",
-                  // },
-                  {
-               name: "is_active",
-               type: "boolean",
-               default:true,
-              },
-            ],
-            // foreignKeys: [
-            // {
-            //    columnNames: ["tattoArtist_id"],
-            //    referencedTableName: "tattoArtist",
-            //    referencedColumnNames: ["id"],
-            // },
-            // ],
+                 {
+                    name: "password",
+                    type: "varchar",
+                    length: "255",
+                    isUnique: true,
+                  },
+               ]  
            }),
            true
         );

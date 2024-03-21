@@ -1,7 +1,5 @@
 import { Request, Response } from "express"
 import { Dates } from "../models/dates";
-import { Job } from "../models/Job";
-import { User } from "../models/User";
 
 //---------------------------------------------------------------------------
 
@@ -58,6 +56,7 @@ export const dateController = {
                     appointmentDate: true,
                     userId: true,
                     jobId: true,
+                    tattoArtistId: true,
                 }
             });
             if (dates.length === 0) {
@@ -83,26 +82,26 @@ export const dateController = {
         }
     },
 
-    async getById(req: Request, res: Response): Promise<void> {
-        try {
-            const dateId = Number(req.params.id);
+    // async getById(req: Request, res: Response): Promise<void> {
+    //     try {
+    //         const dateId = Number(req.params.id);
 
-            const date = await Dates.findOne({
-                    where: { id: dateId },
-                });
+    //         const date = await Dates.findOne({
+    //                 where: { id: dateId },
+    //             });
 
-            if (!date) {
-                res.status(404).json({ message: "Date not found" });
-                return;
-            }
+    //         if (!date) {
+    //             res.status(404).json({ message: "Date not found" });
+    //             return;
+    //         }
 
-            res.json(date);
-        } catch (error) {
-            res.status(500).json({
-                message: "Failed to retrieve Date",
-            });
-        }
-    },
+    //         res.json(date);
+    //     } catch (error) {
+    //         res.status(500).json({
+    //             message: "Failed to retrieve Date",
+    //         });
+    //     }
+    // },
 
     async update(
         req: Request<{id:string}, {}, Partial <Date>>,
@@ -133,7 +132,7 @@ export const dateController = {
                 
             } catch (error) {
                 res.status(500).json({
-                    message: "UDate not found",
+                    message: "Update not found",
                 });      
             }      
         },
@@ -159,18 +158,54 @@ export const dateController = {
             });
         }
     },
+    // async getDatesByArtist(req: Request, res: Response): Promise < void> {
+    //     try {
+    //         const tattoArt = Number(req.params.id);
+    //         const date = await Dates.findOne({
+    //             select:{
+    //                 tattoArtist:{
+    //                     job: true,
+    //                     datesId: true,
+    //                     firstName: true,                        
+    //                 }
+    //             },
+    //             where: { id: tattoArt },
+    //         });
+    //         if(!date) {
+    //             res.status(404).json({ message: "Date not found" });
+    //             return;
+    //         }
+
+
+    //     } catch (error) {
+    //         res.status(500).json({
+    //             message: "Failed to retrieve appointment",});
+    //     }
+    // }
     async getDatesByArtist(req: Request, res: Response): Promise < void> {
         try {
-            const tatooArtistId = req.tokenData.userId;
+            const artistId = Number(req.params.id);
             const datesForShows = await Dates.findOne({
-                select:{
-                    id: true,
-                    appointmentDate: true,
-                    userId: true,
-                    jobId: true,
-                },
-            where: { id: tatooArtistId },
+                    select: {
+                        id: true,
+                        tattoArtistId: true,
+                        jobId: true,
+                        userId: true,
+                        appointmentDate: true,
+                    },
+                    
+                where: { id: artistId },
         });
+        // if(!datesForShows) {
+        //     res.status(404).json({ message: "Dates not found" });
+        //     return;
+        // }
+
+        // const artistDate = datesForShows.job;
+        // if(!artistDate?.length === 0) {
+        //     res.status(404).json({ message: "Dates not found" });
+        //     return;
+
             res.status(200).json(datesForShows);
         } catch (error) {
             res.status(500).json({
@@ -179,6 +214,6 @@ export const dateController = {
     
         
     }
+ };
 
-};
 
