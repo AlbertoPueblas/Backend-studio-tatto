@@ -8,7 +8,7 @@ export const authorize = (allowedRoles: string[]) => {
       const userRole = req.tokenData.userRole;
 
       // Default access to admin
-      if (userRole === UserRoles.ADMIN.name) {
+      if (userRole === UserRoles.ADMIN.name,UserRoles.ARTISTS.name){
          return next();
       }
 

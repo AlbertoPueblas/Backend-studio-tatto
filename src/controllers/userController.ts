@@ -3,6 +3,7 @@ import { User } from "../models/User";
 import bcrypt from "bcrypt";
 import { UserRoles } from "../constants/UserRole";
 import { Role } from "../models/Role";
+import { Dates } from "../models/dates";
 
 //---------------------------------------------------------------------------
 
@@ -12,9 +13,9 @@ export const userController = {
     async create(req: Request, res: Response): Promise<void> {
         try {
 
-            const { firstName, lastName, email, password, isActive } = req.body;
+            const { firstName, lastName, email, password, } = req.body;
 
-            if (!firstName || !lastName || !email || !password || !isActive) {
+            if (!firstName || !lastName || !email || !password) {
                 res.status(400).json({
                     message: "All fields must be provided",
                 });
@@ -28,8 +29,7 @@ export const userController = {
                 lastName: lastName,
                 email: email,
                 password: hashedPassword, 
-                isActive: isActive,
-                role: UserRoles.CLIENT,
+                role: UserRoles.ARTISTS,
             });
 
             // Save to BD
@@ -48,7 +48,7 @@ export const userController = {
     async getAll(req: Request, res: Response): Promise<void> {
         try {
             const page = Number(req.query.page) || 1;
-            const limit = Number(req.query.limit) || 250;
+            const limit = Number(req.query.limit) || 50;
 
             const [users, totalUsers] = await User.findAndCount({
                 select: {
@@ -83,6 +83,49 @@ export const userController = {
         }
     },
 
+    async getAllArtist(req: Request, res: Response): Promise<void> {
+        try {
+
+            const page = Number(req.query.page) || 1;
+            const limit = Number(req.query.limit) || 250;
+            const artistId = UserRoles.ARTISTS;
+            
+            const [artist, totslPages] = await User.findAndCount({
+                select: {
+                    firstName: true,
+                    lastName: true,
+                    id: true,
+                    email: true,
+                },
+                where:{role: artistId},
+
+                skip: (page - 1) * limit,
+                take: limit,
+            });
+            if (!artist.length) {
+                res.status(404).json({
+                    message: "Dates not found",
+                });
+                return;
+            }
+
+            const totalPages = Math.ceil(limit);
+
+            res.status(200).json({
+                artist: artist,
+                current_page: page,
+                per_page: limit,
+                total_pages: totalPages,
+            });
+
+        } catch (error) {
+            res.status(500).json({
+                message: "Something went wrong",
+                error:(error as any).message
+            });
+        }
+    },
+
 
     async getById(req: Request, res: Response): Promise<void> {
         try {
@@ -94,6 +137,8 @@ export const userController = {
                     lastName: true,
                     id: true,
                     email: true,
+                    artistDates: true
+
             },
                 where: { id: userId },
             });
@@ -115,8 +160,8 @@ export const userController = {
         req: Request<{id:string}, {}, Partial <User>>,
         res: Response): Promise<void> {
         try {
-            const userId = Number(req.params.id)
-            const {password, role, ...resUserData} = req.body;
+            const userId = req.tokenData.id;
+            const {password, ...resUserData} = req.body;
 
             const userToUpdate = await User.findOne({where: {id: userId}});
                 if(!userToUpdate) {
@@ -148,14 +193,9 @@ export const userController = {
             }      
         },
 
-
-
-
-
-
     async delete(req: Request, res: Response): Promise < void> {
             try {
-                const userId = Number(req.params.id);
+                const userId = req.tokenData.id;
 
                 const deleteResult = await User.delete(userId);
 
@@ -164,48 +204,18 @@ export const userController = {
             return;
             }
 
-            
-
             res.status(200).json({ 
                 message: "User deleted successfully" });
+
+            
         } catch(error) {
             res.status(500).json({
             message: "Failed to delete user",
+            error:(error as any).message
             });
         }
     },
 
-    async getDatesByUserId(req: Request, res: Response): Promise < void> {
-        try {
-            const userId = Number(req.params.id);
-    
-            const user = await User.findOne({
-                relations: {
-                    dates: {
-                        job: true,
-                    }
-                },
-                where: { id: userId },
-            });
-            if(!user) {
-                res.status(404).json({ message: "User not found" });
-                return;
-            }
-            const userDates = user.dates;
-        if (userDates?.length === 0) {
-            res.status(404).json({
-                message: "User has no dates",
-            });
-            return;
-        }
-            res.status(200).json(userDates);
-        } catch (error) {
-            res.status(500).json({
-                message: "Failed to find"});
-        }
-    
-        
-    },
     async updateRole(req: Request, res: Response): Promise<void>{
         try {
             const userId = Number(req.params.id);
@@ -250,8 +260,11 @@ export const userController = {
            const userId = req.tokenData.userId;
   
            const user = await User.findOne({
+
               relations: {
-                 role: true,
+                clientDates:{
+                    job: true,
+                    },
               },
               where: { id: userId },
            });
@@ -264,4 +277,33 @@ export const userController = {
         }
      },
 
+    async getDatesByUsers(req: Request, res: Response): Promise<void> {
+        try {
+            const userId = req.tokenData.userId;
+   
+            const user = await User.findOne({
+ 
+               select: {
+                firstName: true,
+                lastName: true,
+                id: true,
+                email: true,
+                clientDates: true,
+                artistDates: true,
+              },
+
+              relations: {
+                clientDates: {
+                }
+              },
+               where: { id: userId },
+            });
+   
+            res.json(user);
+         } catch (error) {
+            res.status(500).json({
+               message: "Failed to retrieve user",
+            });
+         }
+      },
 };

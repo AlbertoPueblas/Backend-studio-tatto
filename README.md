@@ -62,17 +62,12 @@ Tecnologías utilizadas:
             }
         ```
 
-    -   GET ALL
+    -   GET ALL USER BY ADMIN
 
-        GET http://localhost:3000/api/user
+        GET http://localhost:3000/api/users
 
     user:
     ``` ts
-        {
-            "user": "Alex",
-            "email": "Alex@mail.com",
-            "password": "pasword"
-        } 
         {
             "id": 1,
             "firstName": "Maynard",
@@ -86,8 +81,69 @@ Tecnologías utilizadas:
             "email": "manager1@manager.com"
         },
     ```
-    - GET BY ID
+    - GET ALL ARTIST ADMIN
 
+        GET http://localhost:3000/api/users/artists  
+    artist:
+    ```ts
+        {
+        "message": "Tatto artists found",
+        "user": {
+        "id": 3,
+        "name": "Artist"
+        },
+        "Name": [
+        {
+        "firstName": "Alberto",
+        "email": "Christop.Cronin@hotmail.com"
+        },
+        {
+        "firstName": "Elza",
+        "email": "Kobe.Toy46@gmail.com"
+        },
+            	],
+        }
+    	"totalArtist": 2
+
+    ```
+        - GET ALL DATES BY ADMIN
+        GET http://localhost:3000/dates  
+    job:
+    ```ts
+        "id": 1,
+        "firstName": "Broderick",
+        "lastName": "Predovic",
+        "email": "Kaitlyn.McDermott@hotmail.com",
+		{
+			"id": 1,
+			"appointmentDate": "2025-03-12T18:52:59.000Z",
+			"userId": 43,
+			"jobId": 47,
+			"tattoArtistId": 1
+		},
+		{
+			"id": 2,
+			"appointmentDate": "2024-10-08T07:28:06.000Z",
+			"userId": 72,
+			"jobId": 53,
+			"tattoArtistId": 1
+        }
+    ```
+            - GET ALL DATES BY ID: ADMIN
+        GET http://localhost:3000/dates/1  
+    job:
+    ```ts
+		{
+			"id": 1,
+			"appointmentDate": "2025-03-12T18:52:59.000Z",
+			"userId": 43,
+			"jobId": 47,
+			"tattoArtistId": 1
+		},
+
+    ```
+    - GET USER ID BY ADMIN
+ 
         GET http://localhost:3000/api/user/1  
     user:
     ``` ts
@@ -98,7 +154,7 @@ Tecnologías utilizadas:
             "email": "admin1@admin.com"
         },
     ```
-    - UPGRADE ROLE BY ID
+    - UPGRADE ROLE BY ID BY ADMIN
 
         PUT http://localhost:3000/api/user/13/role  
     user:
@@ -114,25 +170,24 @@ Tecnologías utilizadas:
             "message": "Role has been updated"
         }
     ```
-    - UPGRADE PROFILE BY ID
+    - CREATE ARTIST BY ADMIN
 
-        PUT http://localhost:3000/api/user/profile/13  
-    user:
+        POST http://localhost:3000/users  
+    artist:
     ```ts
         {
-            "id": 13,
-            "firstName": "Drugo",
-            "lastName": "Kingter",
-            "email": "drugo@mail.com"
-        },
+            "firstName": "Mark",
+            "email": "mark@user.com",
+            "id": 2
+        }
     //------------------------------------------------
         {
-            "message": "Profile has been updated"
+            "message": "Artist has been created"
         }
     ```
-    - DELETE USER BY ID
+    - DELETE USER BY ID ADMIN
 
-        DELETE http://localhost:3000/api/user/13  
+        DELETE http://localhost:3000/api/users/13  
     user:
     ```ts
         {
@@ -148,7 +203,7 @@ Tecnologías utilizadas:
     ```
     - DELETE USER BY CLIENT
 
-        DELETE http://localhost:3000/api/user/profile/13  
+        DELETE http://localhost:3000/api/user/profile 
     user:
     ```ts
         {
@@ -160,6 +215,22 @@ Tecnologías utilizadas:
     //------------------------------------------------
         {
             "message": "User deleted successfully"
+        }
+    ```
+    - UPGRADE PROFILE
+
+        PUT http://localhost:3000/api/users/profile  
+    user:
+    ```ts
+        {
+            "id": 13,
+            "firstName": "Drugo",
+            "lastName": "Kingter",
+            "email": "drugo@mail.com"
+        },
+    //------------------------------------------------
+        {
+            "message": "Profile has been updated"
         }
     ```
     - CREATE APPOINTMENT
@@ -210,46 +281,6 @@ Tecnologías utilizadas:
             "message": "Delete appointment successfully"
         }
     ```
-    - CREATE ARTIST BY ADMIN
-
-        POST http://localhost:3000/artists  
-    artist:
-    ```ts
-        {
-            "firstName": "Mark",
-            "email": "mark@user.com",
-            "id": 2
-        }
-    //------------------------------------------------
-        {
-            "message": "Artist has been created"
-        }
-    ```
-    - GET ALL ARTIST ADMIN
-
-        GET http://localhost:3000/api/artists  
-    artist:
-    ```ts
-        {
-        "message": "Tatto artists found",
-        "user": {
-        "id": 3,
-        "name": "Artist"
-        },
-        "Name": [
-        {
-        "firstName": "Alberto",
-        "email": "Christop.Cronin@hotmail.com"
-        },
-        {
-        "firstName": "Elza",
-        "email": "Kobe.Toy46@gmail.com"
-        },
-            	],
-        }
-    	"totalArtist": 2
-
-    ```
     - GET ARTIST BY ID 
 
         GET http://localhost:3000/api/artists/5  
@@ -273,21 +304,6 @@ Tecnologías utilizadas:
         {
         "firstName": "Christop",
         "email": "Christop.Cronin@hotmail.com"
-        },
-    ```
-
-    - DELETE 
-
-        DELETE http://localhost:3000/api/artist/3  
-    artist:
-    ``` ts
-        {
-			"firstName": "Armando",
-			"email": "June_Prosacco53@hotmail.com"
-		},
-        //---------------------------------------
-        {
-	        "message": "Employed deleted successfully"
         },
     ```
     - CREATE JOB BY ADMIN
@@ -349,30 +365,6 @@ Tecnologías utilizadas:
         //---------------------------------
         {
         "message": "job deleted succesfully"
-        }
-    ```
-        - GET DATES BY ARTIST ID
-
-        GET http://localhost:3000/artists/1/dates  
-    job:
-    ```ts
-        "id": 1,
-        "firstName": "Broderick",
-        "lastName": "Predovic",
-        "email": "Kaitlyn.McDermott@hotmail.com",
-		{
-			"id": 1,
-			"appointmentDate": "2025-03-12T18:52:59.000Z",
-			"userId": 43,
-			"jobId": 47,
-			"tattoArtistId": 1
-		},
-		{
-			"id": 2,
-			"appointmentDate": "2024-10-08T07:28:06.000Z",
-			"userId": 72,
-			"jobId": 53,
-			"tattoArtistId": 1
         }
     ```
 

@@ -14,7 +14,7 @@ router.delete("/:id",auth, dateController.delete);
 
 
 //Protected routes
-// router.get("/:id",auth, authorize((["admin","manager"])), dateController.getById);
+router.get("/:id",auth, authorize((["admin","manager"])), dateController.getById);
 router.get("/",auth, authorize((["admin","manager"])), dateController.getAll);
-router.get("/:id/artist",auth,authorize((["admin","manager"])), dateController.getDatesByArtist);
+router.get("/users",auth,authorize((["admin","manager"])), dateController.getDatesByArtist);
 export default router; 

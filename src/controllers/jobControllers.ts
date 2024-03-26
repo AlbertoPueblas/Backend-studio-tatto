@@ -6,13 +6,12 @@ import { Job } from "../models/Job";
 
 export const jobController = {
 
-    //Create job
     async create(req: Request, res: Response): Promise<void> {
         try {
 
-            const { job, tattoArtist } = req.body;
+            const { job} = req.body;
 
-            if (!job ||  !tattoArtist ) {
+            if (!job ) {
                 res.status(400).json({
                     message: "All fields must be provided",
                 });
@@ -21,7 +20,7 @@ export const jobController = {
 
             const jobToCreate = Job.create({
                 jobs: job,
-                tattoArtist: tattoArtist,
+
             });
 
 
@@ -50,7 +49,6 @@ export const jobController = {
             
             const [job, totalJobs] = await Dates.findAndCount({
                 relations: {
-                    user: true,
                     job: true,
                 },
       
@@ -107,7 +105,7 @@ export const jobController = {
         req: Request<{id:string}, {}, Partial <Job>>,
         res: Response): Promise<void> {
         try {
-            const jobId = Number(req.params.id)
+            const jobId = req.tokenData.id;
             const {...resJobData} = req.body;
 
             const jobToUpdate = await Job.findOne({where: {id: jobId}});
@@ -124,7 +122,7 @@ export const jobController = {
                     ...resJobData,
                 };
                 
-                await Job.save(jobToUpdate);
+                await Job.save(updatedJob);
 
                 res.status(202).json({
                     message: "job has been updated",
@@ -147,8 +145,6 @@ export const jobController = {
             res.status(404).json({ message: "job not delete" });
             return;
             }
-
-            
 
             res.status(200).json({ 
                 message: "job deleted successfully" });

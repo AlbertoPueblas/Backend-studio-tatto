@@ -4,7 +4,7 @@ const router = express.Router();
 
 //Base route
 router.get("/", (req: Request, res: Response) => {
-    res.send(`REST API server running on port ${process.env.PORT}`)
+    res.send("Welcome to REST API for tattoo shop 🖋 ")
 });
 
 export default router;

@@ -1,6 +1,6 @@
 import { MigrationInterface, QueryRunner, Table } from "typeorm";
 
-export class CreateJobsTable1710958812041 implements MigrationInterface {
+export class CreateJobsTable1711132961944 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.createTable(
@@ -19,18 +19,6 @@ export class CreateJobsTable1710958812041 implements MigrationInterface {
                     type: "varchar",
                     length: "255",
                  },
-                 {
-                    name: "tattoArtist_id",
-                    type: "int",
-                 },
-
-              ],
-              foreignKeys: [
-                 {
-                    columnNames: ["tattoArtist_id"],
-                    referencedTableName: "tattoArtist",
-                    referencedColumnNames: ["id"],
-                 },
               ],
            }),
            true
@@ -40,4 +28,5 @@ export class CreateJobsTable1710958812041 implements MigrationInterface {
      public async down(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.dropTable("jobs");
      }
+
 }

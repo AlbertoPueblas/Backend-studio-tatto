@@ -9,7 +9,6 @@ import {
 } from "typeorm"
 import { User } from "./User";
 import { Job } from "./Job";
-import { TattoArtist } from "./TattoArtist";
 
 //--------------------------------------------------------------------
 
@@ -30,15 +29,15 @@ export class Dates extends BaseEntity {
     @Column({name: "tattoArtist_id"})
     tattoArtistId!:number;
 
-@ManyToOne(() => User, (user) => user.dates)
+    @ManyToOne(() => User, (user) => user.clientDates)
     @JoinColumn({ name: "user_id"})
-    user!:User;
+    client!:User;
 
-@ManyToOne(() => Job, (job) => job.dates)
+    @ManyToOne(() => Job, (job) => job.dates)
     @JoinColumn({ name: "job_id"})
     job!:Job;
 
-@ManyToOne(() => TattoArtist, (tattoArtist) => tattoArtist.dates)
+    @ManyToOne(() => User, (user) => user.artistDates)
     @JoinColumn({ name: "tattoArtist_id"})
-    tattoArtist?:TattoArtist;
+    artist!:User;
 }

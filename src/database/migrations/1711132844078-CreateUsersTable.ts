@@ -1,11 +1,11 @@
 import { MigrationInterface, QueryRunner, Table } from "typeorm";
 
-export class CreateTattoArtistTable1710958684615 implements MigrationInterface {
+export class CreateUsersTable1711132844078 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.createTable(
            new Table({
-              name: "tattoArtist",
+              name: "users",
               columns: [
                  {
                     name: "id",
@@ -20,10 +20,11 @@ export class CreateTattoArtistTable1710958684615 implements MigrationInterface {
                     length: "50",
                  },
                  {
-                  name: "last_name",
-                  type: "varchar",
-                  length: "50",
-                  },
+                    name: "last_name",
+                    type: "varchar",
+                    length: "50",
+                    isNullable: true,
+                 },
                  {
                     name: "email",
                     type: "varchar",
@@ -34,16 +35,31 @@ export class CreateTattoArtistTable1710958684615 implements MigrationInterface {
                     name: "password",
                     type: "varchar",
                     length: "255",
-                    isUnique: true,
-                  },
-               ]  
+                 },
+                 {
+                  name: "is_active",
+                  type: "boolean",
+                  default:true,
+                 },
+                 {
+                    name: "role_id",
+                    type: "int",
+                 },    
+              ],
+              foreignKeys: [
+                 {
+                    columnNames: ["role_id"],
+                    referencedTableName: "roles",
+                    referencedColumnNames: ["id"],
+                 },
+              ],
            }),
            true
         );
      }
   
      public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.dropTable("tattoArtist");
+        await queryRunner.dropTable("users");
      }
 
 }

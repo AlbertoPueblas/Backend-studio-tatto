@@ -8,7 +8,7 @@ import { Seeder } from "./Seeders"
 
 export class UserSeeder extends Seeder {
    protected async generate(): Promise<void> {
-      const { ADMINS, MANAGER, CLIENT,  } =
+      const { ADMINS, ARTISTS, CLIENT,  } =
       SeederConfig;
 
       const usersFactory = new UserFactory();
@@ -22,10 +22,10 @@ export class UserSeeder extends Seeder {
       });
 
       //Managers
-      const managerUsers = usersFactory.createMany(MANAGER);
-      managerUsers.forEach((user, i) =>{
-         user.role = UserRoles.MANAGER;
-         user.email = `manager${i + 1}@manager.com`;
+      const artistUsers = usersFactory.createMany(ARTISTS);
+      artistUsers.forEach((user, i) =>{
+         user.role = UserRoles.ARTISTS;
+         user.email = `artist${i + 1}@manager.com`;
       });
 
       //Clients
@@ -36,7 +36,7 @@ export class UserSeeder extends Seeder {
       });
 
       //Save users
-      const allUsers = [...adminUsers,...managerUsers,...clientUsers];
+      const allUsers = [...adminUsers,...artistUsers,...clientUsers];
       await User.save(allUsers);
    }
 };
