@@ -17,7 +17,7 @@ Tecnologías utilizadas:
 
 
 ## Diagrama BD
-![Diagram](https://github.com/AlbertoPueblas/studio-tatto/assets/154467649/3d08905c-0ea4-4875-a971-877027a01b6f)
+![Diagram](!Diagrama.png)
 
 ## Instalación
 1. `$ git init`
