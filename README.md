@@ -6,8 +6,7 @@ Objetivo
 ## Sobre el proyecto
 En este proyecto no usamos front-end. Será todo realizado con back-end.
 En primer lugar, he preparado las carpetas y dependencias, el siguiente paso es crear la base de datos y conectar con el servidor, para ello disponemos de una amplia carta de librerías donde encontrar información.
-Una vez realizada la conexión, disponer todo para crear las migraciones, seeders, fact![Diagrama](https://github.com/AlbertoPueblas/studio-tatto/assets/154467649/916043c6-56f5-467e-ba2d-6e6334393252)
-ory una vez comprobado que todo funciona como debería creamos las rutas para poder probarlas con insomnia o postman para poder verificar que las rutas funcionan. Como reto, este proyecto incluye como opción libre crear administradores. 
+Una vez realizada la conexión, disponer todo para crear las migraciones, seeders, factory una vez comprobado que todo funciona como debería creamos las rutas para poder probarlas con insomnia o postman para poder verificar que las rutas funcionan. Como reto, este proyecto incluye como opción extra crear administradores y otros endpoints. 
 
 
 ## Stack
@@ -17,9 +16,8 @@ Tecnologías utilizadas:
 
 
 
-
 ## Diagrama BD
-![Diagrama](https://github.com/AlbertoPueblas/studio-tatto/assets/154467649/d0dd955d-777e-4c93-a774-8fb50a4dd907)
+![Diagram](https://github.com/AlbertoPueblas/studio-tatto/assets/154467649/3d08905c-0ea4-4875-a971-877027a01b6f)
 
 ## Instalación
 1. `$ git init`
