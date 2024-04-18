@@ -4,6 +4,7 @@ import bcrypt from "bcrypt";
 import { UserRoles } from "../constants/UserRole";
 import { Role } from "../models/Role";
 import { Dates } from "../models/dates";
+import { log } from "console";
 
 //---------------------------------------------------------------------------
 
@@ -156,11 +157,12 @@ export const userController = {
         }
     },
 
-    async update(
-        req: Request<{id:string}, {}, Partial <User>>,
-        res: Response): Promise<void> {
+    async update(req: Request, res: Response): Promise<void> {
         try {
-            const userId = req.tokenData.id;
+            const userId = Number(req.tokenData.userId);
+            // console.log(req.tokenData);
+            
+            // console.log(userId);
             const {password, ...resUserData} = req.body;
 
             const userToUpdate = await User.findOne({where: {id: userId}});
@@ -168,11 +170,11 @@ export const userController = {
                     res.status(404).json({ message: "User not found" });
                     return;
                 }
-                console.log(userToUpdate);
+                console.log(password);
                 
                 if(password){
                     const hashedPassword = bcrypt.hashSync(password, 10);
-                    userToUpdate.password = hashedPassword;
+                    userToUpdate!.password = hashedPassword;
                 }
                 
                 const updatedUser: Partial<User> = {
@@ -193,11 +195,16 @@ export const userController = {
             }      
         },
 
-    async delete(req: Request, res: Response): Promise < void> {
+    async delete(
+        req: Request<{id:string}, {}, Partial <User>>,
+        res: Response): Promise<void> {
             try {
-                const userId = req.tokenData.id;
+                const userId = req.tokenData.userId;
+                console.log(userId);
+                
 
-                const deleteResult = await User.delete(userId);
+                const deleteResult = await User.delete({id:userId});
+                console.log(deleteResult);
 
                 if(deleteResult.affected === 0) {
             res.status(404).json({ message: "User not delete" });
@@ -257,14 +264,12 @@ export const userController = {
 
     async getProfile(req: Request, res: Response): Promise<void> {
         try {
-           const userId = req.tokenData.userId;
+           const userId = Number(req.tokenData.userId);
   
            const user = await User.findOne({
 
               relations: {
-                clientDates:{
-                    job: true,
-                    },
+                role:true
               },
               where: { id: userId },
            });
