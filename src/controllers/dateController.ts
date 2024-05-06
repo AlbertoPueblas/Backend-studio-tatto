@@ -1,38 +1,38 @@
 import { Request, Response } from "express"
-import { Dates } from "../models/dates";
+import { Dates } from "../models/Dates";
 
 //---------------------------------------------------------------------------
 
 export const dateController = {
-
+    
     //Create date
     async create(req: Request, res: Response): Promise<void> {
         try {
-
-            const { appointmentDate, userId, jobId  } = req.body;
-
-            if ( !appointmentDate || !userId || !jobId ) {
+            
+            const { appointmentDate, userId, jobId, tattoArtistId } = req.body;
+            
+            if ( !appointmentDate || !userId || !jobId || !tattoArtistId ) {
                 res.status(400).json({
                     message: "All fields must be provided",
                 });
                 return;
             }
-
+            
             const dateToCreate = Dates.create({
                 appointmentDate: appointmentDate ,
                 userId: userId,
                 jobId: jobId,
-                tattoArtistId: userId,
-             });
+                tattoArtistId: tattoArtistId,
+            });
 
-
+            
             // Save to BD
             await Dates.save(dateToCreate);
 
             res.status(201).json({
                 message: "Date has been created",
             });
-
+            
         } catch (error) {
             res.status(500).json({
                 message: "Failed to create date",
@@ -41,7 +41,7 @@ export const dateController = {
         }
     },
 
-
+    
 
 
     async getAll(req: Request, res: Response): Promise<void> {
@@ -104,10 +104,10 @@ export const dateController = {
     },
 
     async update(
-        req: Request<{id:string}, {}, Partial <Date>>,
+        req: Request<{id:string}, {}, Partial <Dates>>,
         res: Response): Promise<void> {
         try {
-            const dateId = Number(req.params.id)
+            const dateId = req.tokenData.dateId
             const {...resDatesData} = req.body;
 
             const dateToUpdate = await Dates.findOne({where: {id: dateId}});
@@ -116,15 +116,13 @@ export const dateController = {
                     return;
                 }
                 console.log(dateToUpdate);
-                
-
-                
-                const updatedDate: Partial<Date> = {
+        
+                const updatedDate: Partial<Dates> = {
                     ...dateToUpdate,
                     ...resDatesData,
                 };
                 
-                await Dates.save(dateToUpdate);
+                await Dates.save(updatedDate);
 
                 res.status(202).json({
                     message: "Date has been updated",
@@ -133,6 +131,7 @@ export const dateController = {
             } catch (error) {
                 res.status(500).json({
                     message: "Update not found",
+                    error: (error as any).message,
                 });      
             }      
         },

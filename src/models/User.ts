@@ -8,7 +8,7 @@ import {
     OneToMany,
 } from "typeorm"
 import { Role } from "./Role";
-import { Dates } from "./dates";
+import { Dates } from "./Dates";
 
 
 //-----------------------------------------------------------------------------
@@ -27,7 +27,7 @@ export class User extends BaseEntity {
     @Column({ name: "email" })
     email!: string;
 
-    @Column({ name: "password",select:false })
+    @Column({ name: "password",select:false})
     password!: string;
 
     @Column({ name: "is_active" })

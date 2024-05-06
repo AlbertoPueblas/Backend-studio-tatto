@@ -30,13 +30,13 @@ export class CreateAppointmentTable1711132975971 implements MigrationInterface {
                   name: "tattoArtist_id",
                   type: "int",
                   },
-
               ],
               foreignKeys: [
                  {
                     columnNames: ["user_id"],
                     referencedTableName: "users",
                     referencedColumnNames: ["id"],
+                    onDelete:"CASCADE"
                  },                 
                  {
                   columnNames: ["job_id"],

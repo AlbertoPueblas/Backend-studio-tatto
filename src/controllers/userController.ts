@@ -3,7 +3,7 @@ import { User } from "../models/User";
 import bcrypt from "bcrypt";
 import { UserRoles } from "../constants/UserRole";
 import { Role } from "../models/Role";
-import { Dates } from "../models/dates";
+import { Dates } from "../models/Dates";
 import { log } from "console";
 
 //---------------------------------------------------------------------------
@@ -29,7 +29,7 @@ export const userController = {
                 firstName: firstName,
                 lastName: lastName,
                 email: email,
-                password: hashedPassword, 
+                password: hashedPassword,
                 role: UserRoles.ARTISTS,
             });
 
@@ -53,10 +53,10 @@ export const userController = {
 
             const [users, totalUsers] = await User.findAndCount({
                 select: {
-                        firstName: true,
-                        lastName: true,
-                        id: true,
-                        email: true,
+                    id: true,
+                    firstName: true,
+                    lastName: true,
+                    email: true,
                 },
                 skip: (page - 1) * limit,
                 take: limit,
@@ -90,15 +90,15 @@ export const userController = {
             const page = Number(req.query.page) || 1;
             const limit = Number(req.query.limit) || 250;
             const artistId = UserRoles.ARTISTS;
-            
-            const [artist, totslPages] = await User.findAndCount({
+
+            const [artist, totlPages] = await User.findAndCount({
                 select: {
                     firstName: true,
                     lastName: true,
                     id: true,
                     email: true,
                 },
-                where:{role: artistId},
+                where: { role: artistId },
 
                 skip: (page - 1) * limit,
                 take: limit,
@@ -122,7 +122,7 @@ export const userController = {
         } catch (error) {
             res.status(500).json({
                 message: "Something went wrong",
-                error:(error as any).message
+                error: (error as any).message
             });
         }
     },
@@ -134,13 +134,13 @@ export const userController = {
 
             const user = await User.findOne({
                 select: {
+                    id: true,
                     firstName: true,
                     lastName: true,
-                    id: true,
                     email: true,
                     artistDates: true
 
-            },
+                },
                 where: { id: userId },
             });
 
@@ -153,6 +153,7 @@ export const userController = {
         } catch (error) {
             res.status(500).json({
                 message: "Failed to retrieve user",
+                error: (error as any).message
             });
         }
     },
@@ -160,90 +161,95 @@ export const userController = {
     async update(req: Request, res: Response): Promise<void> {
         try {
             const userId = Number(req.tokenData.userId);
+
             // console.log(req.tokenData);
-            
+
             // console.log(userId);
-            const {password, ...resUserData} = req.body;
+            const { password, ...resUserData } = req.body;
 
-            const userToUpdate = await User.findOne({where: {id: userId}});
-                if(!userToUpdate) {
-                    res.status(404).json({ message: "User not found" });
-                    return;
-                }
-                console.log(password);
-                
-                if(password){
-                    const hashedPassword = bcrypt.hashSync(password, 10);
-                    userToUpdate!.password = hashedPassword;
-                }
-                
-                const updatedUser: Partial<User> = {
-                    ...userToUpdate,
-                    ...resUserData,
-                };
-                
-                await User.save(updatedUser);
+            const userToUpdate = await User.findOne({ where: { id: userId } });
+            if (!userToUpdate) {
+                res.status(404).json({ message: "User not found" });
+                return;
+            }
+            console.log(password);
 
-                res.status(202).json({
-                    message: "User has been updated",
-                });
-                
-            } catch (error) {
-                res.status(500).json({
-                    message: "User not found",
-                });      
-            }      
-        },
-
-    async delete(
-        req: Request<{id:string}, {}, Partial <User>>,
-        res: Response): Promise<void> {
-            try {
-                const userId = req.tokenData.userId;
-                console.log(userId);
-                
-
-                const deleteResult = await User.delete({id:userId});
-                console.log(deleteResult);
-
-                if(deleteResult.affected === 0) {
-            res.status(404).json({ message: "User not delete" });
-            return;
+            if (password) {
+                const hashedPassword = bcrypt.hashSync(password, 10);
+                userToUpdate!.password = hashedPassword;
             }
 
-            res.status(200).json({ 
-                message: "User deleted successfully" });
+            const updatedUser: Partial<User> = {
+                ...userToUpdate,
+                ...resUserData,
+            };
 
-            
-        } catch(error) {
+            await User.save(updatedUser);
+
+            res.status(202).json({
+                message: "User has been updated",
+            });
+
+        } catch (error) {
             res.status(500).json({
-            message: "Failed to delete user",
-            error:(error as any).message
+                message: "User not found",
             });
         }
     },
 
-    async updateRole(req: Request, res: Response): Promise<void>{
+    async delete(
+        req: Request<{ id: string }, {}, Partial<User>>,
+        res: Response): Promise<void> {
+        try {
+            // const userId = req.tokenData.userId;
+            const userId = Number(req.params.id);
+
+            console.log(userId);
+            
+
+
+            const deleteResult = await User.delete({ id: userId });
+            console.log(deleteResult);
+
+            if (deleteResult.affected === 0) {
+                res.status(404).json({ message: "User not delete" });
+                return;
+            }
+
+            res.status(200).json({
+                message: "User deleted successfully"
+            });
+
+
+        } catch (error) {
+            res.status(500).json({
+                message: "Failed to delete user",
+                error: (error as any).message
+            });
+        }
+    },
+
+    async updateRole(req: Request, res: Response): Promise<void> {
         try {
             const userId = Number(req.params.id);
             const roleId = req.body.roleId;
-        
+
             const userToUpdate = await User.findOne({
-                where: { 
-                    id: userId 
+                where: {
+                    id: userId
                 },
             });
-            if(!userToUpdate) {
+            if (!userToUpdate) {
                 res.status(404).json({ message: "User not found" });
                 return;
             }
-    
+
             const roleToUpdate = await Role.findOne({
-                where: { 
-                    id: roleId 
+                where: {
+                    id: roleId
                 },
             });
-            if(!roleToUpdate) {
+            if (!roleToUpdate) {
                 res.status(404).json({ message: "role not found" });
                 return;
             }
@@ -264,51 +270,112 @@ export const userController = {
 
     async getProfile(req: Request, res: Response): Promise<void> {
         try {
-           const userId = Number(req.tokenData.userId);
-  
-           const user = await User.findOne({
+            const userId = Number(req.tokenData.userId);
 
-              relations: {
-                role:true
-              },
-              where: { id: userId },
-           });
-  
-           res.json(user);
+            const user = await User.findOne({
+
+                relations: {
+                    role: true
+                },
+                where: { id: userId },
+            });
+
+            res.json(user);
         } catch (error) {
-           res.status(500).json({
-              message: "Failed to retrieve user",
-           });
+            res.status(500).json({
+                message: "Failed to retrieve user",
+            });
         }
-     },
+    },
 
     async getDatesByUsers(req: Request, res: Response): Promise<void> {
         try {
-            const userId = req.tokenData.userId;
-   
-            const user = await User.findOne({
- 
-               select: {
-                firstName: true,
-                lastName: true,
-                id: true,
-                email: true,
-                clientDates: true,
-                artistDates: true,
-              },
+            const userId = Number(req.tokenData.userId);
 
-              relations: {
-                clientDates: {
-                }
-              },
-               where: { id: userId },
+            const user = await User.findOne({
+
+                select: {
+                    firstName: true,
+                    lastName: true,
+                    id: true,
+                    email: true,
+                    clientDates: true,
+                    artistDates: true,
+                },
+
+                relations: {
+                    clientDates: {
+                    }
+                },
+                where: { id: userId },
             });
-   
+
             res.json(user);
-         } catch (error) {
+        } catch (error) {
             res.status(500).json({
-               message: "Failed to retrieve user",
+                message: "Failed to retrieve user",
             });
-         }
-      },
+        }
+    },
+
+    async getDatesUsersById(req: Request, res: Response): Promise<void> {
+        try {
+            const userId = Number(req.params.id);
+
+            const user = await User.findOne({
+
+                select: {
+                    firstName: true,
+                    lastName: true,
+                    id: true,
+                    email: true,
+                    clientDates: true,
+                    artistDates: true,
+                },
+
+                relations: {
+                    clientDates: {
+                    }
+                },
+                where: {id: userId },
+            });
+
+            res.json(user);
+        } catch (error) {
+            res.status(500).json({
+                message: "Failed to retrieve dates",
+            });
+        }
+    },
+
+    async getAllDates(req: Request, res: Response): Promise<void> {
+        try {
+            // const userId = Number(req.params.id);
+
+            const [dates, totalDates] = await User.findAndCount({
+
+                select: {
+                    firstName: true,
+                    lastName: true,
+                    id: true,
+                    email: true,
+                    clientDates: true,
+                    artistDates: true,
+                    
+                },
+                relations: {
+                    clientDates: {
+                    }
+                },
+                // where: {id: userId },
+            });
+
+            res.json(dates);
+        } catch (error) {
+            res.status(500).json({
+                message: "Failed to retrieve dates",
+                error: (error as any).message
+            });
+        }
+    },
 };

@@ -8,8 +8,8 @@ import { authorize } from "../middlewares/authorize";
 const router = express.Router();
 
 //User routes
-router.post("/",auth, dateController.create);
-router.put("/:id",auth, dateController.update); 
+router.post("/appointment",auth, dateController.create);
+router.put("/changeDate",auth, dateController.update); 
 router.delete("/:id",auth, dateController.delete);
 
 

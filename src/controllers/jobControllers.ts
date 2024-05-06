@@ -1,5 +1,5 @@
 import { Request, Response } from "express"
-import { Dates } from "../models/dates";
+import { Dates } from "../models/Dates";
 import { Job } from "../models/Job";
 
 //---------------------------------------------------------------------------
@@ -9,7 +9,7 @@ export const jobController = {
     async create(req: Request, res: Response): Promise<void> {
         try {
 
-            const { job} = req.body;
+            const {job} = req.body;
 
             if (!job ) {
                 res.status(400).json({
@@ -47,14 +47,13 @@ export const jobController = {
             const page = Number(req.query.page) || 1;
             const limit = Number(req.query.limit) || 250;
             
-            const [job, totalJobs] = await Dates.findAndCount({
-                relations: {
-                    job: true,
+            const [jobs, totalJobs] = await Job.findAndCount({
+                select: {
+                    jobs: true,
+                    // id: true,
                 },
-      
-           
             });
-            if (job.length === 0) {
+            if (jobs.length === 0) {
                 res.status(404).json({
                     message: "jobs not found",
                 });
@@ -64,9 +63,9 @@ export const jobController = {
             const totalPages = Math.ceil(totalJobs / limit);
 
             res.status(200).json({
-                jobs: job.slice((page - 1) * limit, page * limit),
+                jobs: jobs.slice((page - 1) * limit, page * limit),
                 current_page: page,
-                total_Jobs: totalJobs,
+                total_pages: totalPages,
             });
 
         } catch (error) {
@@ -97,6 +96,7 @@ export const jobController = {
         } catch (error) {
             res.status(500).json({
                 message: "Failed to retrieve job",
+                error: (error as any).message
             });
         }
     },

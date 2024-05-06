@@ -8,11 +8,11 @@ import { auth } from "../middlewares/auth";
 const router = express.Router();
 
 //User routes
-router.get("/:id", jobController.getById);
+router.get("/meJob:id", jobController.getById);
 router.put("/id",auth, jobController.update);
 router.delete("/:id",auth, jobController.delete);
 
 //protected routes
 router.post("/",auth,authorize((["manager"])), jobController.create);
-// router.get("/",auth, authorize((["admin"]) &&(["manager"])),jobController.getAll);
+router.get("/job",auth, authorize((["admin"])),jobController.getAll);
 export default router;

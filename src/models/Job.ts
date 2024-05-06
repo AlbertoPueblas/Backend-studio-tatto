@@ -5,7 +5,7 @@ import {
     OneToMany,
     PrimaryGeneratedColumn,
 } from "typeorm"
-import { Dates } from "./dates";
+import { Dates } from "./Dates";
 
 //------------------------------------------------------------------------
 
@@ -19,9 +19,5 @@ export class Job extends BaseEntity {
 
     @OneToMany(() => Dates, (dates) => dates.job)
     dates?: Dates[];
-
-
-    
-
 }
 
