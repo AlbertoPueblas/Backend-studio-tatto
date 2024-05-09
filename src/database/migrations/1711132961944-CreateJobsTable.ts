@@ -19,6 +19,7 @@ export class CreateJobsTable1711132961944 implements MigrationInterface {
                     type: "varchar",
                     length: "255",
                  },
+                 
               ],
            }),
            true

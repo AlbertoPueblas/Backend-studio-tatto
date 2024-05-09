@@ -1,5 +1,6 @@
 import { Request, Response } from "express"
 import { Dates } from "../models/Dates";
+import { User } from "../models/User";
 
 //---------------------------------------------------------------------------
 
@@ -8,21 +9,23 @@ export const dateController = {
     //Create date
     async create(req: Request, res: Response): Promise<void> {
         try {
+            const userId = Number(req.tokenData.userId)
+            const { appointmentDate, jobId, tattoArtistId } = req.body;
             
-            const { appointmentDate, userId, jobId, tattoArtistId } = req.body;
-            
-            if ( !appointmentDate || !userId || !jobId || !tattoArtistId ) {
+            if ( !appointmentDate  || !jobId || !tattoArtistId ) {
                 res.status(400).json({
                     message: "All fields must be provided",
                 });
                 return;
             }
-            
+            const user = await User.findOne({
+                where:{id: userId}
+            })
             const dateToCreate = Dates.create({
                 appointmentDate: appointmentDate ,
-                userId: userId,
                 jobId: jobId,
                 tattoArtistId: tattoArtistId,
+                userId: userId,
             });
 
             
@@ -107,12 +110,15 @@ export const dateController = {
         req: Request<{id:string}, {}, Partial <Dates>>,
         res: Response): Promise<void> {
         try {
-            const dateId = req.tokenData.dateId
+            const dateId = Number(req.tokenData.id)
+            
             const {...resDatesData} = req.body;
-
-            const dateToUpdate = await Dates.findOne({where: {id: dateId}});
+            
+            console.log(resDatesData, " yo soy data");
+            const dateToUpdate = await Dates.findOne({where: {id: resDatesData.id}});
                 if(!dateToUpdate) {
                     res.status(404).json({ message: "Date not found" });
+
                     return;
                 }
                 console.log(dateToUpdate);

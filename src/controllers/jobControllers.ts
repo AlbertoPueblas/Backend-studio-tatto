@@ -50,7 +50,7 @@ export const jobController = {
             const [jobs, totalJobs] = await Job.findAndCount({
                 select: {
                     jobs: true,
-                    // id: true,
+                    id: true,
                 },
             });
             if (jobs.length === 0) {

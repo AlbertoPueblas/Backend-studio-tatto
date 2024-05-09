@@ -201,8 +201,8 @@ export const userController = {
         req: Request<{ id: string }, {}, Partial<User>>,
         res: Response): Promise<void> {
         try {
-            // const userId = req.tokenData.userId;
-            const userId = Number(req.params.id);
+            const userId = req.tokenData.userId;
+            // const userId = Number(req.params.id);
 
             console.log(userId);
             
