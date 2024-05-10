@@ -9,7 +9,9 @@ const router = express.Router();
 
 //User routes
 router.post("/appointment",auth, dateController.create);
-router.put("/changeDate/",auth, dateController.update); 
+router.put("/changeDate",auth, dateController.update);
+router.delete("/delete",auth, dateController.delete);
+router.get("/myDate/:id",auth, dateController.getById);
 
 
 //Protected routes

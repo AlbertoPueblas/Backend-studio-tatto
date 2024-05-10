@@ -88,11 +88,21 @@ export const dateController = {
     async getById(req: Request, res: Response): Promise<void> {
         try {
             const dateId = Number(req.params.id);
-
+            console.log(dateId);
+            
             const date = await Dates.findOne({
-                    where: { id: dateId },
-                });
+                select: {
+                    id: true,
+                    appointmentDate: true,
+                    userId: true,
+                    jobId: true,
+                    tattoArtistId: true,
 
+                },
+                
+                where: { id: dateId },
+            });
+            
             if (!date) {
                 res.status(404).json({ message: "Date not found" });
                 return;
@@ -102,10 +112,38 @@ export const dateController = {
         } catch (error) {
             res.status(500).json({
                 message: "Failed to retrieve Date",
+                error: (error as any).message
             });
         }
     },
+    
+    // async update(req: Request<{ id: string }, {}, Partial<Dates>>, res: Response): Promise<void> {
+    //     try {
+    //       const dateId = Number(req.params.id) 
+    //       console.log(dateId);
+          
+    //       const dateToUpdate = await Dates.findOne({ where: { id: dateId } }); // Usar el ID convertido
+          
+    //       if (!dateToUpdate) {
+    //         res.status(404).json({ message: "Date not found" });
+    //         return;
+    //       }
+    //       console.log("Datos recibidos para la actualización:", req.body);
 
+    //       Dates.merge(dateToUpdate, req.body);
+    //       const updatedDate = await dateToUpdate.save();
+          
+    //       res.status(202).json({
+    //         message: "Date has been updated",
+    //         updatedDate,
+    //       });
+    //     } catch (error) {
+    //       res.status(500).json({
+    //         message: "Update failed",
+    //         error: (error as any).message,
+    //       });
+    //     }
+    //   },
     async update(
         req: Request<{id:string}, {}, Partial <Dates>>,
         res: Response): Promise<void> {

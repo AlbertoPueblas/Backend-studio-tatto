@@ -8,7 +8,7 @@ const router = express.Router();
 //Public routes
 router.get("/profile", auth, userController.getProfile);
 router.put("/profile", auth, userController.update);
-router.delete("/", auth, userController.delete);
+router.delete("/delete", auth, userController.delete);
 router.get("/dates",auth, userController.getDatesByUsers);
 
 

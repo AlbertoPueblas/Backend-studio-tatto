@@ -8,7 +8,7 @@ import { auth } from "../middlewares/auth";
 const router = express.Router();
 
 //User routes
-router.get("/meJob:id", jobController.getById);
+router.get("/meJob/:id", jobController.getById);
 router.put("/id",auth, jobController.update);
 router.delete("/:id",auth, jobController.delete);
 
