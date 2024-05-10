@@ -46,43 +46,43 @@ export const userController = {
             });
         }
     },
+
     async getAll(req: Request, res: Response): Promise<void> {
         try {
-            const page = Number(req.query.page) || 1;
-            const limit = Number(req.query.limit) || 50;
-
-            const [users, totalUsers] = await User.findAndCount({
-                select: {
-                    id: true,
-                    firstName: true,
-                    lastName: true,
-                    email: true,
-                },
-                skip: (page - 1) * limit,
-                take: limit,
+          const page = Number(req.query.page) || 1;
+          const limit = Number(req.query.limit) || 25;
+      
+          const [users, totalUsers] = await User.findAndCount({
+            select: {
+              id: true,
+              firstName: true,
+              lastName: true,
+              email: true,
+            },
+            skip: (page - 1) * limit,
+            take: limit,
+          });
+          if (users.length === 0) {
+            res.status(404).json({
+              message: "Users not found",
             });
-            if (users.length === 0) {
-                res.status(404).json({
-                    message: "Users not found",
-                });
-                return;
-            }
-
-            const totalPages = Math.ceil(totalUsers / limit);
-
-            res.status(200).json({
-                users: users,
-                current_page: page,
-                per_page: limit,
-                total_pages: totalPages,
-            });
-
+            return;
+          }
+      
+          const totalPages = Math.ceil(totalUsers / limit);
+      
+          res.status(200).json({
+            users: users,
+            current_page: page,
+            per_page: limit,
+            total_pages: totalPages,
+          });
         } catch (error) {
-            res.status(500).json({
-                message: "Something went wrong",
-            });
+          res.status(500).json({
+            message: "Something went wrong",
+          });
         }
-    },
+      },
 
     async getAllArtist(req: Request, res: Response): Promise<void> {
         try {
