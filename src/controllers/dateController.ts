@@ -138,6 +138,7 @@ export const dateController = {
                 const updatedDate: Partial<Dates> = {
                     ...dateToUpdate,
                     ...resDatesData,
+                    id: Number(resDatesData.id)
                 };
                 
                 await Dates.save(updatedDate);
