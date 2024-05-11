@@ -51,7 +51,7 @@ export const dateController = {
         try {
 
             const page = Number(req.query.page) || 1;
-            const limit = Number(req.query.limit) || 250;
+            const limit = Number(req.query.limit) || 25;
             
             const [dates, totalDates] = await Dates.findAndCount({
                 select:{
@@ -60,7 +60,9 @@ export const dateController = {
                     userId: true,
                     jobId: true,
                     tattoArtistId: true,
-                }
+                },
+                skip: (page - 1) * limit,
+                take: limit,
             });
             if (dates.length === 0) {
                 res.status(404).json({
@@ -117,33 +119,6 @@ export const dateController = {
         }
     },
     
-    // async update(req: Request<{ id: string }, {}, Partial<Dates>>, res: Response): Promise<void> {
-    //     try {
-    //       const dateId = Number(req.params.id) 
-    //       console.log(dateId);
-          
-    //       const dateToUpdate = await Dates.findOne({ where: { id: dateId } }); // Usar el ID convertido
-          
-    //       if (!dateToUpdate) {
-    //         res.status(404).json({ message: "Date not found" });
-    //         return;
-    //       }
-    //       console.log("Datos recibidos para la actualización:", req.body);
-
-    //       Dates.merge(dateToUpdate, req.body);
-    //       const updatedDate = await dateToUpdate.save();
-          
-    //       res.status(202).json({
-    //         message: "Date has been updated",
-    //         updatedDate,
-    //       });
-    //     } catch (error) {
-    //       res.status(500).json({
-    //         message: "Update failed",
-    //         error: (error as any).message,
-    //       });
-    //     }
-    //   },
     async update(
         req: Request<{id:string}, {}, Partial <Dates>>,
         res: Response): Promise<void> {
@@ -159,8 +134,7 @@ export const dateController = {
 
                     return;
                 }
-                console.log(dateToUpdate);
-        
+                
                 const updatedDate: Partial<Dates> = {
                     ...dateToUpdate,
                     ...resDatesData,
